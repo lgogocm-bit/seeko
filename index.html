@@ -4,188 +4,629 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Seeko — Product Finder</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --bg: #ffffff; --bg2: #f7f9f7; --bg3: #f0f4f0;
-    --border: #e8ede8; --border2: #d4ddd4;
-    --green: #16a34a; --green-light: #22c55e;
-    --green-pale: #f0faf3; --green-pale2: #dcfce7; --green-dark: #14532d;
-    --text: #0f1a0f; --text2: #374737; --muted: #6b7c6b; --muted2: #9aaa9a;
-    --red: #dc2626; --red-pale: #fef2f2;
-    --orange: #ea580c; --orange-pale: #fff7ed;
-    --yellow: #ca8a04; --yellow-pale: #fefce8;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-    --shadow-lg: 0 8px 32px rgba(0,0,0,0.1);
+    --bg: #ffffff;
+    --bg2: #f8faf8;
+    --bg3: #f1f5f1;
+    --border: #e4eae4;
+    --border2: #cdd8cd;
+    --green: #16a34a;
+    --green-light: #22c55e;
+    --green-pale: #f0faf3;
+    --green-pale2: #dcfce7;
+    --green-dark: #14532d;
+    --text: #0d150d;
+    --text2: #334433;
+    --muted: #607060;
+    --muted2: #8fa08f;
+    --red: #dc2626;
+    --red-pale: #fef2f2;
+    --orange: #ea580c;
+    --orange-pale: #fff7ed;
+    --yellow: #b45309;
+    --yellow-pale: #fffbeb;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+    --shadow: 0 4px 12px rgba(0,0,0,0.07);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.09);
   }
-  body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; min-height: 100vh; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 13.5px;
+    line-height: 1.5;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
   .layout { display: flex; min-height: 100vh; }
 
-  .sidebar { width: 240px; flex-shrink: 0; background: var(--bg); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
-  .sidebar-logo { padding: 20px 20px 16px; border-bottom: 1px solid var(--border); }
-  .logo-text { font-size: 20px; font-weight: 800; color: var(--green); letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
-  .logo-dot { width: 8px; height: 8px; background: var(--green-light); border-radius: 50%; animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)} }
-  .sidebar-section { padding: 12px 12px 4px; }
-  .sidebar-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted2); padding: 0 8px; margin-bottom: 4px; }
-  .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; font-size: 13.5px; font-weight: 500; color: var(--muted); cursor: pointer; transition: all .15s; margin-bottom: 1px; }
+  /* SIDEBAR */
+  .sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: var(--bg);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .sidebar-logo {
+    padding: 18px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo-text {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--green);
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .logo-indicator {
+    width: 7px;
+    height: 7px;
+    background: var(--green-light);
+    border-radius: 50%;
+  }
+
+  .sidebar-section { padding: 10px 8px 4px; }
+
+  .sidebar-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--muted2);
+    padding: 0 8px;
+    margin-bottom: 2px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 10px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all .12s;
+    margin-bottom: 1px;
+  }
+
   .nav-item:hover { background: var(--bg2); color: var(--text); }
   .nav-item.active { background: var(--green-pale); color: var(--green); font-weight: 600; }
-  .nav-item .icon { font-size: 16px; width: 20px; text-align: center; }
-  .nav-badge { margin-left: auto; background: var(--green); color: #fff; font-size: 10px; font-weight: 700; border-radius: 100px; padding: 1px 7px; }
-  .updated-tag { margin: 0 12px 12px; background: var(--green-pale); border: 1px solid var(--green-pale2); border-radius: 8px; padding: 8px 12px; font-size: 11.5px; color: var(--green); font-weight: 500; display: none; }
+
+  .nav-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  .nav-item.active .nav-icon { opacity: 1; }
+
+  .nav-badge {
+    margin-left: auto;
+    background: var(--green);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    border-radius: 100px;
+    padding: 1px 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .updated-tag {
+    margin: 0 8px 12px;
+    background: var(--green-pale);
+    border: 1px solid var(--green-pale2);
+    border-radius: 7px;
+    padding: 7px 10px;
+    font-size: 11px;
+    color: var(--green-dark);
+    font-weight: 500;
+    display: none;
+    line-height: 1.4;
+  }
+
   .updated-tag.visible { display: block; }
 
+  /* MAIN */
   .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-  .topbar { position: sticky; top: 0; z-index: 50; background: var(--bg); border-bottom: 1px solid var(--border); padding: 0 28px; height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .topbar-title { font-size: 15px; font-weight: 700; }
-  .topbar-right { display: flex; align-items: center; gap: 10px; }
 
-  .btn { display: inline-flex; align-items: center; gap: 6px; border-radius: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; cursor: pointer; transition: all .15s; border: none; font-size: 13.5px; padding: 8px 16px; }
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .topbar-title { font-size: 14px; font-weight: 700; color: var(--text); }
+  .topbar-right { display: flex; align-items: center; gap: 8px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 7px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .12s;
+    border: none;
+    font-size: 13px;
+    padding: 7px 14px;
+    white-space: nowrap;
+  }
+
   .btn-primary { background: var(--green); color: #fff; }
-  .btn-primary:hover:not(:disabled) { background: #15803d; box-shadow: 0 4px 12px rgba(22,163,74,.3); }
-  .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+  .btn-primary:hover:not(:disabled) { background: #15803d; }
+  .btn-primary:disabled { opacity: .45; cursor: not-allowed; }
   .btn-outline { background: var(--bg); border: 1px solid var(--border2); color: var(--text2); }
   .btn-outline:hover { background: var(--bg2); }
   .btn-sm { padding: 5px 10px; font-size: 12px; border-radius: 6px; }
-  .btn-green-ghost { background: var(--green-pale); border: 1px solid var(--green-pale2); color: var(--green); font-weight: 600; }
-  .btn-green-ghost:hover { background: var(--green-pale2); }
+  .btn-ghost-green { background: var(--green-pale); border: 1px solid var(--green-pale2); color: var(--green); font-weight: 600; }
+  .btn-ghost-green:hover { background: var(--green-pale2); }
 
-  .filters-bar { padding: 14px 28px; background: var(--bg); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-  .filter-group { display: flex; align-items: center; gap: 4px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 4px; }
-  .filter-chip { padding: 5px 12px; border-radius: 6px; font-size: 12.5px; font-weight: 500; color: var(--muted); cursor: pointer; transition: all .12s; border: none; background: transparent; font-family: 'Plus Jakarta Sans', sans-serif; }
+  /* FILTERS */
+  .filters-bar {
+    padding: 10px 24px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 3px;
+    gap: 2px;
+  }
+
+  .filter-chip {
+    padding: 4px 12px;
+    border-radius: 5px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all .1s;
+    border: none;
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+  }
+
   .filter-chip:hover { color: var(--text); background: var(--bg); }
-  .filter-chip.active { background: var(--bg); color: var(--green); font-weight: 700; box-shadow: var(--shadow-sm); }
-  .sort-select { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 12.5px; font-weight: 500; color: var(--text2); cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; outline: none; }
-  .results-count { margin-left: auto; font-size: 12.5px; color: var(--muted); font-weight: 500; }
-  .results-count span { color: var(--green); font-weight: 700; }
+  .filter-chip.active { background: var(--bg); color: var(--green); font-weight: 600; box-shadow: var(--shadow-sm); }
 
-  .content { padding: 20px 28px; flex: 1; }
-  .portfolio-banner { background: linear-gradient(135deg,var(--green-pale) 0%,var(--bg) 100%); border: 1px solid var(--green-pale2); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
-  .portfolio-left { display: flex; align-items: center; gap: 12px; }
-  .portfolio-icon { width: 36px; height: 36px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
-  .portfolio-text-title { font-size: 13.5px; font-weight: 700; color: var(--green-dark); }
-  .portfolio-text-sub { font-size: 12px; color: var(--muted); margin-top: 1px; }
+  .sort-select {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 5px 10px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text2);
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+  }
 
-  .product-table { width: 100%; border-collapse: separate; border-spacing: 0; }
-  .product-table thead tr th { padding: 8px 12px; text-align: left; font-size: 11px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--muted2); border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 56px; z-index: 10; }
-  .product-table tbody tr { transition: background .1s; cursor: pointer; }
-  .product-table tbody tr:hover td { background: var(--bg2); }
-  .product-table tbody tr td { padding: 13px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; background: var(--bg); transition: background .1s; }
-  .product-table tbody tr:last-child td { border-bottom: none; }
-  .product-table tbody tr.expanded td { background: var(--green-pale); border-bottom: none; }
+  .results-count { margin-left: auto; font-size: 12px; color: var(--muted); }
+  .results-count strong { color: var(--green); font-weight: 600; }
+
+  /* CONTENT */
+  .content { padding: 20px 24px; flex: 1; }
+
+  .info-banner {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .info-banner-left { display: flex; align-items: center; gap: 12px; }
+
+  .info-banner-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--green);
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .info-banner-icon svg { width: 16px; height: 16px; fill: white; }
+  .info-banner-title { font-size: 13px; font-weight: 700; color: var(--text); }
+  .info-banner-sub { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+
+  /* TABLE */
+  .table-wrap { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+
+  .product-table { width: 100%; border-collapse: collapse; }
+
+  .product-table thead tr th {
+    padding: 9px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--muted2);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    white-space: nowrap;
+  }
+
+  .product-table tbody tr.data-row {
+    cursor: pointer;
+    transition: background .08s;
+    animation: fadeIn .2s ease both;
+  }
+
+  .product-table tbody tr.data-row:hover td { background: var(--bg2); }
+
+  .product-table tbody tr.data-row td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    vertical-align: middle;
+    transition: background .08s;
+  }
+
+  .product-table tbody tr.data-row:last-of-type td { border-bottom: none; }
+  .product-table tbody tr.data-row.is-expanded td { background: var(--green-pale); border-bottom: none; }
+
+  /* EXPANDED ROW */
   .expanded-row { display: none; }
   .expanded-row.open { display: table-row; }
-  .expanded-row td { background: var(--green-pale)!important; border-bottom: 1px solid var(--border)!important; padding: 0!important; }
-  .expand-inner { padding: 16px 16px 20px 56px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; animation: slideDown .2s ease; }
-  @keyframes slideDown { from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)} }
-  .expand-block-title { font-size: 11px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-  .hook-item { background: var(--bg); border: 1px solid var(--border); border-radius: 7px; padding: 9px 12px; font-size: 13px; color: var(--text2); margin-bottom: 6px; line-height: 1.5; }
-  .hook-item:first-child { border-color: var(--green); color: var(--green-dark); font-weight: 500; }
-  .audience-box { background: var(--bg); border: 1px solid var(--border); border-radius: 7px; padding: 10px 12px; font-size: 13px; color: var(--text2); line-height: 1.5; margin-bottom: 10px; }
-  .score-breakdown { display: flex; flex-direction: column; gap: 8px; }
+  .expanded-row td {
+    background: var(--green-pale) !important;
+    border-bottom: 1px solid var(--border) !important;
+    padding: 0 !important;
+  }
+
+  .expand-panel {
+    padding: 20px 20px 24px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    animation: slideDown .15s ease;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .expand-section-title {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .hook-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 10px 12px;
+    font-size: 12.5px;
+    color: var(--text2);
+    margin-bottom: 7px;
+    line-height: 1.55;
+    position: relative;
+  }
+
+  .hook-card.primary {
+    border-color: var(--green);
+    background: #fff;
+  }
+
+  .hook-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+
+  .detail-grid { display: flex; flex-direction: column; gap: 8px; }
+
+  .detail-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 9px 12px;
+  }
+
+  .detail-row-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--muted2);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    min-width: 80px;
+    padding-top: 1px;
+  }
+
+  .detail-row-val {
+    font-size: 12.5px;
+    color: var(--text2);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .score-bars { display: flex; flex-direction: column; gap: 10px; }
+
   .score-bar-row { display: flex; align-items: center; gap: 10px; }
-  .score-bar-label { font-size: 12px; color: var(--muted); width: 90px; flex-shrink: 0; }
-  .score-bar-track { flex: 1; height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; }
-  .score-bar-fill { height: 100%; background: var(--green); border-radius: 100px; }
-  .score-bar-val { font-size: 12px; font-weight: 700; color: var(--green); width: 28px; text-align: right; }
 
-  .cell-rank { font-size: 13px; font-weight: 700; color: var(--muted2); }
-  .cell-rank.top3 { color: var(--yellow); }
-  .cell-rank.top10 { color: var(--green); }
-  .cell-product { display: flex; align-items: center; gap: 12px; min-width: 180px; }
-  .product-emoji-box { width: 38px; height: 38px; border-radius: 8px; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-  .product-name-cell { font-size: 13.5px; font-weight: 600; color: var(--text); line-height: 1.3; }
-  .product-cat { font-size: 11px; color: var(--muted); font-weight: 500; margin-top: 1px; }
-  .trend-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; border-radius: 6px; padding: 3px 9px; white-space: nowrap; }
-  .trend-hot { background: var(--orange-pale); color: var(--orange); }
-  .trend-rising { background: var(--green-pale); color: var(--green); }
-  .trend-cooling { background: var(--red-pale); color: var(--red); }
-  .score-circle { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; font-size: 12px; font-weight: 800; border: 2px solid; }
-  .score-high { border-color: var(--green); color: var(--green); background: var(--green-pale); }
-  .score-mid { border-color: var(--yellow); color: var(--yellow); background: var(--yellow-pale); }
-  .score-low { border-color: var(--red); color: var(--red); background: var(--red-pale); }
-  .cell-margin { font-size: 13.5px; font-weight: 700; color: var(--green); }
-  .cell-price { font-size: 13px; color: var(--text2); font-weight: 500; }
-  .cell-why { font-size: 12.5px; color: var(--muted); max-width: 240px; line-height: 1.45; }
-  .cell-actions { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
-  .chevron { font-size: 11px; color: var(--muted2); transition: transform .2s; }
-  .expanded .chevron { transform: rotate(180deg); }
+  .score-bar-label {
+    font-size: 12px;
+    color: var(--muted);
+    width: 95px;
+    flex-shrink: 0;
+  }
 
-  .empty-state { text-align: center; padding: 80px 20px; }
-  .empty-icon { font-size: 48px; margin-bottom: 16px; }
-  .empty-title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
-  .empty-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; max-width: 360px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+  .score-bar-track {
+    flex: 1;
+    height: 5px;
+    background: var(--border);
+    border-radius: 100px;
+    overflow: hidden;
+  }
 
-  /* LOADING ROW */
-  .loading-row td { padding: 10px 12px !important; }
-  .skeleton { height: 14px; background: linear-gradient(90deg, var(--bg3) 25%, var(--bg2) 50%, var(--bg3) 75%); background-size: 200% 100%; animation: shimmer 1.2s infinite; border-radius: 6px; }
-  @keyframes shimmer { 0%{background-position:200% 0}100%{background-position:-200% 0} }
+  .score-bar-fill {
+    height: 100%;
+    background: var(--green);
+    border-radius: 100px;
+    transition: width .5s ease;
+  }
 
-  .admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); backdrop-filter: blur(4px); z-index: 300; align-items: center; justify-content: center; }
+  .score-bar-val {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--green);
+    width: 26px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .score-bar-fill.medium { background: var(--yellow); }
+  .score-bar-fill.low    { background: var(--red); }
+
+  /* CELLS */
+  .rank-cell {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--muted2);
+    width: 40px;
+  }
+
+  .rank-cell.top3  { color: var(--yellow); }
+  .rank-cell.top10 { color: var(--green); }
+
+  .product-cell { display: flex; align-items: center; gap: 10px; }
+
+  .product-color-bar {
+    width: 3px;
+    height: 32px;
+    border-radius: 100px;
+    background: var(--border2);
+    flex-shrink: 0;
+  }
+
+  .product-color-bar.hot     { background: var(--orange); }
+  .product-color-bar.rising  { background: var(--green); }
+  .product-color-bar.cooling { background: var(--muted2); }
+
+  .product-name {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 2px;
+  }
+
+  .product-cat {
+    font-size: 11px;
+    color: var(--muted2);
+    font-weight: 500;
+  }
+
+  .trend-pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11.5px;
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 3px 8px;
+    white-space: nowrap;
+  }
+
+  .trend-hot     { background: var(--orange-pale); color: var(--orange); }
+  .trend-rising  { background: var(--green-pale);  color: var(--green);  }
+  .trend-cooling { background: var(--red-pale);    color: var(--red);    }
+
+  .score-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 800;
+    border: 2px solid;
+  }
+
+  .score-high { border-color: var(--green);  color: var(--green);  background: var(--green-pale);  }
+  .score-mid  { border-color: var(--yellow); color: var(--yellow); background: var(--yellow-pale); }
+  .score-low  { border-color: var(--red);    color: var(--red);    background: var(--red-pale);    }
+
+  .margin-cell { font-size: 13.5px; font-weight: 700; color: var(--green); }
+  .price-cell  { font-size: 13px;   font-weight: 500; color: var(--text2); }
+
+  .why-cell {
+    font-size: 12px;
+    color: var(--muted);
+    max-width: 220px;
+    line-height: 1.45;
+  }
+
+  .actions-cell { display: flex; align-items: center; gap: 6px; }
+
+  .chevron {
+    width: 14px;
+    height: 14px;
+    color: var(--muted2);
+    transition: transform .2s;
+    flex-shrink: 0;
+  }
+
+  .is-expanded .chevron { transform: rotate(180deg); }
+
+  /* EMPTY */
+  .empty-state { text-align: center; padding: 70px 20px; }
+  .empty-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+  .empty-sub { font-size: 13.5px; color: var(--muted); margin-bottom: 20px; max-width: 340px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+
+  /* ADMIN */
+  .admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.35); backdrop-filter: blur(4px); z-index: 300; align-items: center; justify-content: center; }
   .admin-overlay.open { display: flex; }
-  .admin-modal { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 28px; width: 440px; box-shadow: var(--shadow-lg); }
-  .admin-title { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
-  .admin-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
-  .admin-field { margin-bottom: 14px; }
-  .admin-label { font-size: 11px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-  .admin-input { width: 100%; background: var(--bg2); border: 1px solid var(--border2); border-radius: 8px; padding: 10px 14px; font-size: 13.5px; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text); outline: none; transition: border-color .15s; }
+  .admin-modal { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 26px; width: 420px; box-shadow: var(--shadow-lg); }
+  .admin-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .admin-sub { font-size: 12.5px; color: var(--muted); margin-bottom: 18px; line-height: 1.6; }
+  .admin-field { margin-bottom: 12px; }
+  .admin-label { font-size: 11px; font-weight: 600; letter-spacing: .4px; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; display: block; }
+  .admin-input { width: 100%; background: var(--bg2); border: 1px solid var(--border2); border-radius: 7px; padding: 9px 12px; font-size: 13px; font-family: 'Inter', sans-serif; color: var(--text); outline: none; transition: border-color .15s; }
   .admin-input:focus { border-color: var(--green); }
-  .admin-actions { display: flex; gap: 10px; margin-top: 20px; }
+  .admin-actions { display: flex; gap: 8px; margin-top: 18px; }
 
-  .progress-toast { display: none; position: fixed; bottom: 24px; right: 24px; background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow-lg); width: 300px; z-index: 400; }
+  /* PROGRESS */
+  .progress-toast { display: none; position: fixed; bottom: 20px; right: 20px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; box-shadow: var(--shadow-lg); width: 280px; z-index: 400; }
   .progress-toast.visible { display: block; }
-  .progress-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-  .progress-title { font-size: 13px; font-weight: 700; color: var(--text); }
-  .progress-pct { font-size: 13px; font-weight: 700; color: var(--green); }
-  .progress-track { height: 5px; background: var(--bg3); border-radius: 100px; overflow: hidden; margin-bottom: 12px; }
-  .progress-fill { height: 100%; background: var(--green); border-radius: 100px; transition: width .4s ease; width: 0%; }
-  .progress-status { font-size: 12px; color: var(--muted); }
-  .progress-status span { color: var(--green); font-weight: 600; }
+  .progress-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .progress-label { font-size: 12.5px; font-weight: 700; color: var(--text); }
+  .progress-pct   { font-size: 12.5px; font-weight: 700; color: var(--green); }
+  .progress-track { height: 4px; background: var(--bg3); border-radius: 100px; overflow: hidden; margin-bottom: 8px; }
+  .progress-fill  { height: 100%; background: var(--green); border-radius: 100px; transition: width .4s ease; width: 0%; }
+  .progress-status { font-size: 11.5px; color: var(--muted); }
+  .progress-status strong { color: var(--green); font-weight: 600; }
 
-  .data-row { animation: fadeIn .25s ease both; }
-  @keyframes fadeIn { from{opacity:0}to{opacity:1} }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
 
   @media(max-width:900px) {
     .sidebar { display: none; }
-    .content { padding: 16px; }
-    .topbar, .filters-bar { padding: 0 16px; }
-    .filters-bar { padding: 10px 16px; }
-    .expand-inner { grid-template-columns: 1fr; }
-    .admin-modal { width: calc(100vw - 32px); }
+    .content { padding: 14px; }
+    .topbar, .filters-bar { padding: 0 14px; }
+    .filters-bar { padding: 8px 14px; }
+    .expand-panel { grid-template-columns: 1fr; padding-left: 14px; }
+    .admin-modal { width: calc(100vw - 28px); }
+    .why-cell { display: none; }
   }
 </style>
 </head>
 <body>
 <div class="layout">
+
+  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-logo">
-      <div class="logo-text" id="logoClick"><div class="logo-dot"></div>seeko</div>
+      <div class="logo-text">
+        <div class="logo-indicator"></div>
+        seeko
+      </div>
     </div>
+
     <div class="sidebar-section">
       <div class="sidebar-label">Research</div>
-      <div class="nav-item active"><span class="icon">🔍</span> Product Finder <span class="nav-badge">AI</span></div>
-      <div class="nav-item"><span class="icon">🏆</span> Portfolio</div>
-      <div class="nav-item"><span class="icon">📈</span> Trending</div>
-      <div class="nav-item"><span class="icon">🕵️</span> Competitor Spy</div>
+      <div class="nav-item active">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Product Finder
+        <span class="nav-badge">AI</span>
+      </div>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Portfolio
+      </div>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        Trending
+      </div>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Competitor Spy
+      </div>
     </div>
+
     <div class="sidebar-section">
       <div class="sidebar-label">Intelligence</div>
-      <div class="nav-item"><span class="icon">📱</span> TikTok Spy</div>
-      <div class="nav-item"><span class="icon">📘</span> Facebook Ads</div>
-      <div class="nav-item"><span class="icon">🛒</span> Sales Tracker</div>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        TikTok Spy
+      </div>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        Facebook Ads
+      </div>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Sales Tracker
+      </div>
     </div>
-    <div style="margin-top:12px">
-      <div class="updated-tag" id="updatedTag">✅ Updated today</div>
+
+    <div style="margin-top:auto; padding: 12px 8px;">
+      <div class="updated-tag" id="updatedTag">Last updated: —</div>
     </div>
   </aside>
 
+  <!-- MAIN -->
   <div class="main">
     <div class="topbar">
       <div class="topbar-title">Product Finder</div>
       <div class="topbar-right">
-        <button class="btn btn-outline btn-sm" onclick="openAdmin()">⚙️ Admin</button>
+        <button class="btn btn-outline btn-sm" onclick="openAdmin()">Admin</button>
       </div>
     </div>
 
@@ -208,69 +649,73 @@
     </div>
 
     <div class="content">
-      <div class="portfolio-banner">
-        <div class="portfolio-left">
-          <div class="portfolio-icon">🏆</div>
+      <div class="info-banner">
+        <div class="info-banner-left">
+          <div class="info-banner-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
           <div>
-            <div class="portfolio-text-title">Top 100 Winning Products — Updated Daily</div>
-            <div class="portfolio-text-sub" id="bannerSub">AI scans TikTok, Amazon & AliExpress every day to find what's winning right now</div>
+            <div class="info-banner-title">Top 100 Winning Products</div>
+            <div class="info-banner-sub" id="bannerSub">Updated daily — click a product to see ad hooks, target audience, and full score breakdown</div>
           </div>
         </div>
       </div>
 
-      <table class="product-table">
-        <thead>
-          <tr>
-            <th style="width:44px">#</th>
-            <th>Product</th>
-            <th>Trend</th>
-            <th style="text-align:center">Score</th>
-            <th>Margin</th>
-            <th>Sell Price</th>
-            <th>Why it wins</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="productBody"></tbody>
-      </table>
+      <div class="table-wrap">
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th style="width:42px">#</th>
+              <th>Product</th>
+              <th>Trend</th>
+              <th style="text-align:center; width:60px">Score</th>
+              <th>Margin</th>
+              <th>Sell Price</th>
+              <th>Why it wins</th>
+              <th style="width:100px"></th>
+            </tr>
+          </thead>
+          <tbody id="productBody"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ADMIN -->
+<!-- ADMIN MODAL -->
 <div class="admin-overlay" id="adminOverlay" onclick="closeAdminBg(event)">
   <div class="admin-modal">
-    <div class="admin-title">🔐 Admin — Refresh Products</div>
-    <div class="admin-sub">Claude fetches 10 products at a time across 10 niches. The table fills up live as each batch comes in — takes about 2 minutes total.</div>
+    <div class="admin-title">Admin — Refresh Products</div>
+    <div class="admin-sub">Claude fetches 10 products per niche across 10 categories. The table fills live as each batch arrives — takes about 90 seconds.</div>
     <div class="admin-field">
-      <div class="admin-label">Claude API Key</div>
+      <label class="admin-label">Claude API Key</label>
       <input class="admin-input" type="password" id="adminApiKey" placeholder="sk-ant-api03-..." />
     </div>
     <div class="admin-field">
-      <div class="admin-label">Admin Password</div>
+      <label class="admin-label">Admin Password</label>
       <input class="admin-input" type="password" id="adminPass" placeholder="Your secret password" />
     </div>
     <div class="admin-actions">
-      <button class="btn btn-primary" id="refreshBtn" onclick="runRefresh()" style="flex:1">🔄 Refresh Products Now</button>
+      <button class="btn btn-primary" id="refreshBtn" onclick="runRefresh()" style="flex:1">Refresh Products</button>
       <button class="btn btn-outline" onclick="closeAdmin()">Cancel</button>
     </div>
   </div>
 </div>
 
-<!-- PROGRESS -->
+<!-- PROGRESS TOAST -->
 <div class="progress-toast" id="progressToast">
   <div class="progress-header">
-    <div class="progress-title">Finding winning products...</div>
+    <div class="progress-label">Finding products...</div>
     <div class="progress-pct" id="progressPct">0%</div>
   </div>
   <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-  <div class="progress-status" id="progressStatus">Starting search...</div>
+  <div class="progress-status" id="progressStatus">Starting...</div>
 </div>
 
 <script>
 const ADMIN_PASSWORD = 'seeko2025';
-const STORAGE_KEY    = 'seeko_products_v2';
-const STORAGE_DATE   = 'seeko_updated_v2';
+const STORAGE_KEY    = 'seeko_v3_products';
+const STORAGE_DATE   = 'seeko_v3_date';
 const TOTAL_BATCHES  = 10;
 
 let allProducts  = [];
@@ -285,23 +730,22 @@ function setPct(p) {
   document.getElementById('progressPct').textContent  = Math.round(p) + '%';
 }
 
-function setStatus(msg) {
-  document.getElementById('progressStatus').innerHTML = msg;
+function setStatus(html) {
+  document.getElementById('progressStatus').innerHTML = html;
 }
 
 function parseProducts(text) {
-  const starts = [];
-  for(let i = 0; i < text.length; i++) if(text[i]==='[') starts.push(i);
-  for(const start of starts) {
+  for(let i = 0; i < text.length; i++) {
+    if(text[i] !== '[') continue;
     let depth = 0, end = -1;
-    for(let i = start; i < text.length; i++) {
-      if(text[i]==='['||text[i]==='{') depth++;
-      if(text[i]===']'||text[i]==='}') depth--;
-      if(depth===0&&text[i]===']'){end=i;break;}
+    for(let j = i; j < text.length; j++) {
+      if(text[j]==='['||text[j]==='{') depth++;
+      if(text[j]===']'||text[j]==='}') depth--;
+      if(depth===0 && text[j]===']') { end = j; break; }
     }
-    if(end > start) {
+    if(end > i) {
       try {
-        const arr = JSON.parse(text.slice(start, end+1));
+        const arr = JSON.parse(text.slice(i, end+1));
         if(Array.isArray(arr) && arr.length > 0 && arr[0].name) return arr;
       } catch(e) {}
     }
@@ -310,16 +754,13 @@ function parseProducts(text) {
 }
 
 async function fetchBatch(apiKey, batchNum) {
-  const response = await fetch('/api/claude', {
+  const res = await fetch('/api/claude', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
     body: JSON.stringify({ batch: batchNum })
   });
-  if(!response.ok) {
-    const err = await response.json();
-    throw new Error(err.error || 'Batch ' + batchNum + ' failed');
-  }
-  const data = await response.json();
+  if(!res.ok) { const e = await res.json(); throw new Error(e.error || 'Batch failed'); }
+  const data = await res.json();
   return parseProducts(data.text || '');
 }
 
@@ -327,48 +768,38 @@ async function runRefresh() {
   const apiKey = document.getElementById('adminApiKey').value.trim();
   const pass   = document.getElementById('adminPass').value.trim();
   if(pass !== ADMIN_PASSWORD) { alert('Wrong admin password.'); return; }
-  if(!apiKey) { alert('Enter your Claude API key.'); return; }
+  if(!apiKey)  { alert('Enter your Claude API key.'); return; }
 
   closeAdmin();
   document.getElementById('refreshBtn').disabled = true;
   document.getElementById('progressToast').classList.add('visible');
+  allProducts = [];
+  renderTable([]);
   setPct(0);
 
   const niches = ['Tech','Beauty','Home','Fashion','Pets','Sports','Kids','Outdoor','Health','Car'];
-  const newProducts = [];
 
   for(let batch = 1; batch <= TOTAL_BATCHES; batch++) {
-    const niche = niches[batch - 1];
-    setStatus(`Searching <span>${niche}</span> products... (${batch}/${TOTAL_BATCHES})`);
-
+    setStatus(`Searching <strong>${niches[batch-1]}</strong> products... (${batch} / ${TOTAL_BATCHES})`);
     try {
       const products = await fetchBatch(apiKey, batch);
-      newProducts.push(...products);
-
-      // Live update table as each batch comes in
-      allProducts = [...newProducts].sort((a,b) => a.rank - b.rank);
+      allProducts.push(...products);
+      allProducts.sort((a,b) => a.rank - b.rank);
       renderTable(allProducts);
-
-      const pct = (batch / TOTAL_BATCHES) * 100;
-      setPct(pct);
-
+      setPct((batch / TOTAL_BATCHES) * 100);
     } catch(err) {
-      console.warn('Batch ' + batch + ' error:', err.message);
-      // Continue with next batch even if one fails
+      console.warn('Batch', batch, 'failed:', err.message);
     }
-
-    // Small delay between batches to avoid rate limiting
-    if(batch < TOTAL_BATCHES) await new Promise(r => setTimeout(r, 500));
+    if(batch < TOTAL_BATCHES) await new Promise(r => setTimeout(r, 400));
   }
 
-  // Save to localStorage
-  if(newProducts.length > 0) {
+  if(allProducts.length > 0) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(allProducts));
     localStorage.setItem(STORAGE_DATE, new Date().toISOString());
     showUpdatedTag();
-    setStatus(`✅ Done! <span>${allProducts.length} products</span> loaded`);
+    setStatus(`Done — <strong>${allProducts.length} products</strong> loaded`);
   } else {
-    setStatus('❌ No products found. Try again.');
+    setStatus('No products found. Try again.');
   }
 
   document.getElementById('refreshBtn').disabled = false;
@@ -391,30 +822,30 @@ function sortProducts(val) {
 }
 
 function renderTable(products) {
-  const filtered = activeFilter==='all'
+  const filtered = activeFilter === 'all'
     ? products
     : products.filter(p => (p.category||'').toLowerCase().includes(activeFilter.toLowerCase()));
 
   const countEl = document.getElementById('resultsCount');
   if(products.length > 0) {
-    countEl.innerHTML = `Showing <span>${filtered.length}</span> of ${products.length} products`;
+    countEl.innerHTML = `Showing <strong>${filtered.length}</strong> of ${products.length} products`;
   }
 
   const tbody = document.getElementById('productBody');
 
   if(products.length === 0) {
     tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state">
-      <div class="empty-icon">🔍</div>
-      <div class="empty-title">Products loading soon</div>
-      <div class="empty-sub">Click ⚙️ Admin to load today's top 100 winning products.</div>
+      <div class="empty-title">No products loaded yet</div>
+      <div class="empty-sub">Click Admin to load today's top 100 winning products. The table fills live as Claude searches each category.</div>
+      <button class="btn btn-primary" onclick="openAdmin()">Load Products</button>
     </div></td></tr>`;
     return;
   }
 
   if(filtered.length === 0) {
     tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state">
-      <div class="empty-icon">🔎</div>
       <div class="empty-title">No products in this category</div>
+      <div class="empty-sub">Try selecting a different filter above.</div>
     </div></td></tr>`;
     return;
   }
@@ -424,51 +855,109 @@ function renderTable(products) {
     const rankClass  = rank<=3 ? 'top3' : rank<=10 ? 'top10' : '';
     const score      = Number(p.score) || 0;
     const scoreClass = score>=80 ? 'score-high' : score>=60 ? 'score-mid' : 'score-low';
-    const trendClass = p.trend==='Hot' ? 'trend-hot' : p.trend==='Rising' ? 'trend-rising' : 'trend-cooling';
-    const trendEmoji = p.trend==='Hot' ? '🔥' : p.trend==='Rising' ? '📈' : '💤';
-    const margin     = p.margin ? '$'+p.margin : '—';
-    const sell       = p.sellPrice ? '$'+p.sellPrice : '—';
-    const delay      = Math.min(i * 15, 400);
-    const hooks      = (p.hooks||[]).map(h => `<div class="hook-item">${h}</div>`).join('');
+    const trend      = p.trend || 'Rising';
+    const trendClass = trend==='Hot' ? 'trend-hot' : trend==='Rising' ? 'trend-rising' : 'trend-cooling';
+    const barClass   = trend==='Hot' ? 'hot' : trend==='Rising' ? 'rising' : 'cooling';
+    const margin     = p.margin   ? '$' + p.margin   : '—';
+    const sell       = p.sellPrice ? '$' + p.sellPrice : '—';
+    const hooks      = (p.hooks||[]);
     const aliUrl     = `https://www.aliexpress.com/wholesale?SearchText=${encodeURIComponent(p.name)}`;
-    const ts         = Number(p.trendScore) || score;
-    const cs         = Number(p.competitionScore) || 50;
-    const ps         = Number(p.profitScore) || score;
+    const ts = Number(p.trendScore)       || score;
+    const cs = Number(p.competitionScore) || 50;
+    const ps = Number(p.profitScore)      || score;
+    const tsFill = ts>=80 ? '' : ts>=60 ? 'medium' : 'low';
+    const csFill = cs>=80 ? '' : cs>=60 ? 'medium' : 'low';
+    const psFill = ps>=80 ? '' : ps>=60 ? 'medium' : 'low';
+    const delay = Math.min(i*12, 300);
+
+    const hooksHTML = hooks.map((h, hi) => `
+      <div class="hook-card ${hi===0?'primary':''}">
+        <div class="hook-label">Hook ${hi+1}</div>
+        ${h}
+      </div>`).join('');
 
     return `
-      <tr class="data-row" style="animation-delay:${delay}ms" onclick="toggleRow(this,'r${i}')">
-        <td><div class="cell-rank ${rankClass}">#${rank}</div></td>
-        <td><div class="cell-product">
-          <div class="product-emoji-box">${p.emoji||'📦'}</div>
-          <div><div class="product-name-cell">${p.name}</div><div class="product-cat">${p.category||''}</div></div>
-        </div></td>
-        <td><span class="trend-badge ${trendClass}">${trendEmoji} ${p.trend}</span></td>
-        <td style="text-align:center"><div class="score-circle ${scoreClass}">${score}</div></td>
-        <td><div class="cell-margin">${margin}</div></td>
-        <td><div class="cell-price">${sell}</div></td>
-        <td><div class="cell-why">${p.why||''}</div></td>
-        <td><div class="cell-actions">
-          <a class="btn btn-green-ghost btn-sm" href="${aliUrl}" target="_blank" onclick="event.stopPropagation()">Supplier →</a>
-          <span class="chevron">▼</span>
-        </div></td>
-      </tr>
-      <tr class="expanded-row" id="r${i}">
-        <td colspan="8"><div class="expand-inner">
-          <div><div class="expand-block-title">⚡ Ad Hooks</div>${hooks}</div>
-          <div>
-            <div class="expand-block-title">🎯 Target Audience</div>
-            <div class="audience-box">${p.audience||'—'}</div>
-            <a class="btn btn-primary btn-sm" href="${aliUrl}" target="_blank">Find on AliExpress →</a>
-          </div>
-          <div>
-            <div class="expand-block-title">📊 Score Breakdown</div>
-            <div class="score-breakdown">
-              <div class="score-bar-row"><div class="score-bar-label">Trend</div><div class="score-bar-track"><div class="score-bar-fill" style="width:${ts}%"></div></div><div class="score-bar-val">${ts}</div></div>
-              <div class="score-bar-row"><div class="score-bar-label">Competition</div><div class="score-bar-track"><div class="score-bar-fill" style="width:${cs}%"></div></div><div class="score-bar-val">${cs}</div></div>
-              <div class="score-bar-row"><div class="score-bar-label">Profit</div><div class="score-bar-track"><div class="score-bar-fill" style="width:${ps}%"></div></div><div class="score-bar-val">${ps}</div></div>
+      <tr class="data-row" style="animation-delay:${delay}ms" onclick="toggleRow(this,'exp${i}')">
+        <td><div class="rank-cell ${rankClass}">#${rank}</div></td>
+        <td>
+          <div class="product-cell">
+            <div class="product-color-bar ${barClass}"></div>
+            <div>
+              <div class="product-name">${p.name}</div>
+              <div class="product-cat">${p.category||''}</div>
             </div>
           </div>
-        </div></td>
+        </td>
+        <td><span class="trend-pill ${trendClass}">${trend}</span></td>
+        <td style="text-align:center"><div class="score-badge ${scoreClass}">${score}</div></td>
+        <td><div class="margin-cell">${margin}</div></td>
+        <td><div class="price-cell">${sell}</div></td>
+        <td><div class="why-cell">${p.why||''}</div></td>
+        <td>
+          <div class="actions-cell">
+            <a class="btn btn-ghost-green btn-sm" href="${aliUrl}" target="_blank" onclick="event.stopPropagation()">Supplier</a>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </td>
+      </tr>
+      <tr class="expanded-row" id="exp${i}">
+        <td colspan="8">
+          <div class="expand-panel">
+            <div>
+              <div class="expand-section-title">Ad Hooks</div>
+              ${hooksHTML}
+            </div>
+            <div>
+              <div class="expand-section-title">Product Details</div>
+              <div class="detail-grid">
+                <div class="detail-row">
+                  <div class="detail-row-label">Audience</div>
+                  <div class="detail-row-val">${p.audience||'—'}</div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-row-label">Margin</div>
+                  <div class="detail-row-val" style="color:var(--green);font-weight:600">${margin} per unit</div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-row-label">Sell Price</div>
+                  <div class="detail-row-val">${sell}</div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-row-label">Why it wins</div>
+                  <div class="detail-row-val">${p.why||'—'}</div>
+                </div>
+              </div>
+              <div style="margin-top:10px">
+                <a class="btn btn-primary btn-sm" href="${aliUrl}" target="_blank">Find Supplier on AliExpress</a>
+              </div>
+            </div>
+            <div>
+              <div class="expand-section-title">Score Breakdown</div>
+              <div class="score-bars">
+                <div class="score-bar-row">
+                  <div class="score-bar-label">Trend Score</div>
+                  <div class="score-bar-track"><div class="score-bar-fill ${tsFill}" style="width:${ts}%"></div></div>
+                  <div class="score-bar-val">${ts}</div>
+                </div>
+                <div class="score-bar-row">
+                  <div class="score-bar-label">Competition</div>
+                  <div class="score-bar-track"><div class="score-bar-fill ${csFill}" style="width:${cs}%"></div></div>
+                  <div class="score-bar-val">${cs}</div>
+                </div>
+                <div class="score-bar-row">
+                  <div class="score-bar-label">Profit Potential</div>
+                  <div class="score-bar-track"><div class="score-bar-fill ${psFill}" style="width:${ps}%"></div></div>
+                  <div class="score-bar-val">${ps}</div>
+                </div>
+                <div class="score-bar-row">
+                  <div class="score-bar-label">Overall Score</div>
+                  <div class="score-bar-track"><div class="score-bar-fill" style="width:${score}%"></div></div>
+                  <div class="score-bar-val">${score}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
       </tr>`;
   }).join('');
 }
@@ -477,21 +966,18 @@ function toggleRow(row, id) {
   const exp    = document.getElementById(id);
   const isOpen = exp.classList.contains('open');
   document.querySelectorAll('.expanded-row').forEach(r => r.classList.remove('open'));
-  document.querySelectorAll('.data-row').forEach(r => r.classList.remove('expanded'));
-  if(!isOpen) { exp.classList.add('open'); row.classList.add('expanded'); }
+  document.querySelectorAll('.data-row').forEach(r => r.classList.remove('is-expanded'));
+  if(!isOpen) { exp.classList.add('open'); row.classList.add('is-expanded'); }
 }
 
 function showUpdatedTag() {
   const date = localStorage.getItem(STORAGE_DATE);
-  const tag  = document.getElementById('updatedTag');
-  const sub  = document.getElementById('bannerSub');
-  if(date) {
-    const d   = new Date(date);
-    const str = d.toLocaleDateString('en-US', {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'});
-    tag.textContent = '✅ Last updated: ' + str;
-    tag.classList.add('visible');
-    sub.textContent = 'Last refreshed ' + str + ' · Updated daily by the Seeko team';
-  }
+  if(!date) return;
+  const d   = new Date(date);
+  const str = d.toLocaleDateString('en-US', {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'});
+  document.getElementById('updatedTag').textContent = 'Last updated: ' + str;
+  document.getElementById('updatedTag').classList.add('visible');
+  document.getElementById('bannerSub').textContent = 'Last refreshed ' + str + ' — click any row to see full details, ad hooks, and supplier link';
 }
 
 window.addEventListener('load', () => {
