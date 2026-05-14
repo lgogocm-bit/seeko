@@ -7,468 +7,144 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #ffffff;
-    --bg2: #f7f9f7;
-    --bg3: #f0f4f0;
-    --border: #e8ede8;
-    --border2: #d4ddd4;
-    --green: #16a34a;
-    --green-light: #22c55e;
-    --green-pale: #f0faf3;
-    --green-pale2: #dcfce7;
-    --green-dark: #14532d;
-    --text: #0f1a0f;
-    --text2: #374737;
-    --muted: #6b7c6b;
-    --muted2: #9aaa9a;
-    --red: #dc2626;
-    --red-pale: #fef2f2;
-    --orange: #ea580c;
-    --orange-pale: #fff7ed;
-    --yellow: #ca8a04;
-    --yellow-pale: #fefce8;
+    --bg: #ffffff; --bg2: #f7f9f7; --bg3: #f0f4f0;
+    --border: #e8ede8; --border2: #d4ddd4;
+    --green: #16a34a; --green-light: #22c55e;
+    --green-pale: #f0faf3; --green-pale2: #dcfce7; --green-dark: #14532d;
+    --text: #0f1a0f; --text2: #374737; --muted: #6b7c6b; --muted2: #9aaa9a;
+    --red: #dc2626; --red-pale: #fef2f2;
+    --orange: #ea580c; --orange-pale: #fff7ed;
+    --yellow: #ca8a04; --yellow-pale: #fefce8;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-    --shadow: 0 4px 12px rgba(0,0,0,0.08);
     --shadow-lg: 0 8px 32px rgba(0,0,0,0.1);
   }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
-    min-height: 100vh;
-  }
-
+  body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; min-height: 100vh; }
   .layout { display: flex; min-height: 100vh; }
 
-  /* ── SIDEBAR ── */
-  .sidebar {
-    width: 240px;
-    flex-shrink: 0;
-    background: var(--bg);
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-  }
-
-  .sidebar-logo {
-    padding: 20px 20px 16px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .logo-text {
-    font-size: 20px;
-    font-weight: 800;
-    color: var(--green);
-    letter-spacing: -0.5px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .logo-dot {
-    width: 8px; height: 8px;
-    background: var(--green-light);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%,100% { opacity:1; transform:scale(1); }
-    50% { opacity:0.5; transform:scale(0.8); }
-  }
-
+  /* SIDEBAR */
+  .sidebar { width: 240px; flex-shrink: 0; background: var(--bg); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+  .sidebar-logo { padding: 20px 20px 16px; border-bottom: 1px solid var(--border); }
+  .logo-text { font-size: 20px; font-weight: 800; color: var(--green); letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+  .logo-dot { width: 8px; height: 8px; background: var(--green-light); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)} }
   .sidebar-section { padding: 12px 12px 4px; }
-
-  .sidebar-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--muted2);
-    padding: 0 8px;
-    margin-bottom: 4px;
-  }
-
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 13.5px;
-    font-weight: 500;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.15s;
-    margin-bottom: 1px;
-  }
-
+  .sidebar-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted2); padding: 0 8px; margin-bottom: 4px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; font-size: 13.5px; font-weight: 500; color: var(--muted); cursor: pointer; transition: all .15s; margin-bottom: 1px; }
   .nav-item:hover { background: var(--bg2); color: var(--text); }
   .nav-item.active { background: var(--green-pale); color: var(--green); font-weight: 600; }
   .nav-item .icon { font-size: 16px; width: 20px; text-align: center; }
-
-  .nav-badge {
-    margin-left: auto;
-    background: var(--green);
-    color: #fff;
-    font-size: 10px;
-    font-weight: 700;
-    border-radius: 100px;
-    padding: 1px 7px;
-  }
-
-  .updated-tag {
-    margin: 0 12px 12px;
-    background: var(--green-pale);
-    border: 1px solid var(--green-pale2);
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-size: 11.5px;
-    color: var(--green);
-    font-weight: 500;
-    display: none;
-  }
-
+  .nav-badge { margin-left: auto; background: var(--green); color: #fff; font-size: 10px; font-weight: 700; border-radius: 100px; padding: 1px 7px; }
+  .updated-tag { margin: 0 12px 12px; background: var(--green-pale); border: 1px solid var(--green-pale2); border-radius: 8px; padding: 8px 12px; font-size: 11.5px; color: var(--green); font-weight: 500; display: none; }
   .updated-tag.visible { display: block; }
 
-  /* ── MAIN ── */
+  /* MAIN */
   .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-
-  .topbar {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    padding: 0 28px;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  .topbar-title { font-size: 15px; font-weight: 700; color: var(--text); }
+  .topbar { position: sticky; top: 0; z-index: 50; background: var(--bg); border-bottom: 1px solid var(--border); padding: 0 28px; height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .topbar-title { font-size: 15px; font-weight: 700; }
   .topbar-right { display: flex; align-items: center; gap: 10px; }
 
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    border-radius: 8px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-    border: none;
-    font-size: 13.5px;
-    padding: 8px 16px;
-  }
-
+  .btn { display: inline-flex; align-items: center; gap: 6px; border-radius: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; cursor: pointer; transition: all .15s; border: none; font-size: 13.5px; padding: 8px 16px; }
   .btn-primary { background: var(--green); color: #fff; }
-  .btn-primary:hover:not(:disabled) { background: #15803d; box-shadow: 0 4px 12px rgba(22,163,74,0.3); }
-  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-primary:hover:not(:disabled) { background: #15803d; box-shadow: 0 4px 12px rgba(22,163,74,.3); }
+  .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
   .btn-outline { background: var(--bg); border: 1px solid var(--border2); color: var(--text2); }
   .btn-outline:hover { background: var(--bg2); }
   .btn-sm { padding: 5px 10px; font-size: 12px; border-radius: 6px; }
   .btn-green-ghost { background: var(--green-pale); border: 1px solid var(--green-pale2); color: var(--green); font-weight: 600; }
   .btn-green-ghost:hover { background: var(--green-pale2); }
 
-  /* ── FILTERS ── */
-  .filters-bar {
-    padding: 14px 28px;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .filter-group {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 4px;
-  }
-
-  .filter-chip {
-    padding: 5px 12px;
-    border-radius: 6px;
-    font-size: 12.5px;
-    font-weight: 500;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.12s;
-    border: none;
-    background: transparent;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-  }
-
+  /* FILTERS */
+  .filters-bar { padding: 14px 28px; background: var(--bg); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .filter-group { display: flex; align-items: center; gap: 4px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 4px; }
+  .filter-chip { padding: 5px 12px; border-radius: 6px; font-size: 12.5px; font-weight: 500; color: var(--muted); cursor: pointer; transition: all .12s; border: none; background: transparent; font-family: 'Plus Jakarta Sans', sans-serif; }
   .filter-chip:hover { color: var(--text); background: var(--bg); }
   .filter-chip.active { background: var(--bg); color: var(--green); font-weight: 700; box-shadow: var(--shadow-sm); }
-
-  .sort-select {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 6px 10px;
-    font-size: 12.5px;
-    font-weight: 500;
-    color: var(--text2);
-    cursor: pointer;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    outline: none;
-  }
-
+  .sort-select { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 12.5px; font-weight: 500; color: var(--text2); cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; outline: none; }
   .results-count { margin-left: auto; font-size: 12.5px; color: var(--muted); font-weight: 500; }
   .results-count span { color: var(--green); font-weight: 700; }
 
-  /* ── CONTENT ── */
+  /* CONTENT */
   .content { padding: 20px 28px; flex: 1; }
-
-  .portfolio-banner {
-    background: linear-gradient(135deg, var(--green-pale) 0%, var(--bg) 100%);
-    border: 1px solid var(--green-pale2);
-    border-radius: 12px;
-    padding: 14px 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
+  .portfolio-banner { background: linear-gradient(135deg,var(--green-pale) 0%,var(--bg) 100%); border: 1px solid var(--green-pale2); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
   .portfolio-left { display: flex; align-items: center; gap: 12px; }
-
-  .portfolio-icon {
-    width: 36px; height: 36px;
-    background: var(--green);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-  }
-
+  .portfolio-icon { width: 36px; height: 36px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
   .portfolio-text-title { font-size: 13.5px; font-weight: 700; color: var(--green-dark); }
   .portfolio-text-sub { font-size: 12px; color: var(--muted); margin-top: 1px; }
 
-  /* ── TABLE ── */
+  /* TABLE */
   .product-table { width: 100%; border-collapse: separate; border-spacing: 0; }
-
-  .product-table thead tr th {
-    padding: 8px 12px;
-    text-align: left;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-    color: var(--muted2);
-    border-bottom: 1px solid var(--border);
-    background: var(--bg);
-    position: sticky;
-    top: 56px;
-    z-index: 10;
-  }
-
-  .product-table tbody tr { transition: background 0.1s; cursor: pointer; }
+  .product-table thead tr th { padding: 8px 12px; text-align: left; font-size: 11px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--muted2); border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 56px; z-index: 10; }
+  .product-table tbody tr { transition: background .1s; cursor: pointer; }
   .product-table tbody tr:hover td { background: var(--bg2); }
-  .product-table tbody tr td {
-    padding: 13px 12px;
-    border-bottom: 1px solid var(--border);
-    vertical-align: middle;
-    background: var(--bg);
-    transition: background 0.1s;
-  }
+  .product-table tbody tr td { padding: 13px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; background: var(--bg); transition: background .1s; }
   .product-table tbody tr:last-child td { border-bottom: none; }
   .product-table tbody tr.expanded td { background: var(--green-pale); border-bottom: none; }
-
   .expanded-row { display: none; }
   .expanded-row.open { display: table-row; }
-  .expanded-row td { background: var(--green-pale) !important; border-bottom: 1px solid var(--border) !important; padding: 0 !important; }
-
-  .expand-inner {
-    padding: 16px 16px 20px 56px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 16px;
-    animation: slideDown 0.2s ease;
-  }
-
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-4px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .expand-block-title {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 8px;
-  }
-
-  .hook-item {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    padding: 9px 12px;
-    font-size: 13px;
-    color: var(--text2);
-    margin-bottom: 6px;
-    line-height: 1.5;
-  }
-
+  .expanded-row td { background: var(--green-pale)!important; border-bottom: 1px solid var(--border)!important; padding: 0!important; }
+  .expand-inner { padding: 16px 16px 20px 56px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; animation: slideDown .2s ease; }
+  @keyframes slideDown { from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)} }
+  .expand-block-title { font-size: 11px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .hook-item { background: var(--bg); border: 1px solid var(--border); border-radius: 7px; padding: 9px 12px; font-size: 13px; color: var(--text2); margin-bottom: 6px; line-height: 1.5; }
   .hook-item:first-child { border-color: var(--green); color: var(--green-dark); font-weight: 500; }
-
-  .audience-box {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    padding: 10px 12px;
-    font-size: 13px;
-    color: var(--text2);
-    line-height: 1.5;
-    margin-bottom: 10px;
-  }
-
+  .audience-box { background: var(--bg); border: 1px solid var(--border); border-radius: 7px; padding: 10px 12px; font-size: 13px; color: var(--text2); line-height: 1.5; margin-bottom: 10px; }
   .score-breakdown { display: flex; flex-direction: column; gap: 8px; }
   .score-bar-row { display: flex; align-items: center; gap: 10px; }
   .score-bar-label { font-size: 12px; color: var(--muted); width: 90px; flex-shrink: 0; }
   .score-bar-track { flex: 1; height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; }
   .score-bar-fill { height: 100%; background: var(--green); border-radius: 100px; }
-  .score-bar-val { font-size: 12px; font-weight: 700; color: var(--green); width: 28px; text-align: right; flex-shrink: 0; }
+  .score-bar-val { font-size: 12px; font-weight: 700; color: var(--green); width: 28px; text-align: right; }
 
-  /* ── CELLS ── */
+  /* CELLS */
   .cell-rank { font-size: 13px; font-weight: 700; color: var(--muted2); }
   .cell-rank.top3 { color: var(--yellow); }
   .cell-rank.top10 { color: var(--green); }
-
   .cell-product { display: flex; align-items: center; gap: 12px; min-width: 180px; }
-  .product-emoji-box {
-    width: 38px; height: 38px;
-    border-radius: 8px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-  }
+  .product-emoji-box { width: 38px; height: 38px; border-radius: 8px; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
   .product-name-cell { font-size: 13.5px; font-weight: 600; color: var(--text); line-height: 1.3; }
   .product-cat { font-size: 11px; color: var(--muted); font-weight: 500; margin-top: 1px; }
-
-  .trend-badge {
-    display: inline-flex; align-items: center; gap: 4px;
-    font-size: 12px; font-weight: 600;
-    border-radius: 6px; padding: 3px 9px;
-    white-space: nowrap;
-  }
+  .trend-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; border-radius: 6px; padding: 3px 9px; white-space: nowrap; }
   .trend-hot { background: var(--orange-pale); color: var(--orange); }
   .trend-rising { background: var(--green-pale); color: var(--green); }
   .trend-cooling { background: var(--red-pale); color: var(--red); }
-
-  .score-circle {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 36px; height: 36px; border-radius: 50%;
-    font-size: 12px; font-weight: 800; border: 2px solid;
-  }
+  .score-circle { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; font-size: 12px; font-weight: 800; border: 2px solid; }
   .score-high { border-color: var(--green); color: var(--green); background: var(--green-pale); }
   .score-mid { border-color: var(--yellow); color: var(--yellow); background: var(--yellow-pale); }
   .score-low { border-color: var(--red); color: var(--red); background: var(--red-pale); }
-
   .cell-margin { font-size: 13.5px; font-weight: 700; color: var(--green); }
   .cell-price { font-size: 13px; color: var(--text2); font-weight: 500; }
   .cell-why { font-size: 12.5px; color: var(--muted); max-width: 240px; line-height: 1.45; }
   .cell-actions { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
-  .chevron { font-size: 11px; color: var(--muted2); transition: transform 0.2s; }
+  .chevron { font-size: 11px; color: var(--muted2); transition: transform .2s; }
   .expanded .chevron { transform: rotate(180deg); }
 
-  /* ── EMPTY ── */
+  /* EMPTY */
   .empty-state { text-align: center; padding: 80px 20px; }
   .empty-icon { font-size: 48px; margin-bottom: 16px; }
   .empty-title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
   .empty-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; max-width: 360px; margin-left: auto; margin-right: auto; line-height: 1.6; }
 
-  /* ── ADMIN MODAL ── */
-  .admin-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(4px);
-    z-index: 300;
-    align-items: center;
-    justify-content: center;
-  }
+  /* ADMIN MODAL */
+  .admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); backdrop-filter: blur(4px); z-index: 300; align-items: center; justify-content: center; }
   .admin-overlay.open { display: flex; }
-
-  .admin-modal {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px;
-    width: 440px;
-    box-shadow: var(--shadow-lg);
-  }
-
+  .admin-modal { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 28px; width: 440px; box-shadow: var(--shadow-lg); }
   .admin-title { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
-  .admin-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
-
+  .admin-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
   .admin-field { margin-bottom: 14px; }
-  .admin-label { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-
-  .admin-input {
-    width: 100%;
-    background: var(--bg2);
-    border: 1px solid var(--border2);
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 13.5px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.15s;
-  }
+  .admin-label { font-size: 11px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .admin-input { width: 100%; background: var(--bg2); border: 1px solid var(--border2); border-radius: 8px; padding: 10px 14px; font-size: 13.5px; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text); outline: none; transition: border-color .15s; }
   .admin-input:focus { border-color: var(--green); }
-
   .admin-actions { display: flex; gap: 10px; margin-top: 20px; }
 
-  /* ── PROGRESS TOAST ── */
-  .progress-toast {
-    display: none;
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 18px 20px;
-    box-shadow: var(--shadow-lg);
-    width: 300px;
-    z-index: 400;
-  }
+  /* PROGRESS */
+  .progress-toast { display: none; position: fixed; bottom: 24px; right: 24px; background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow-lg); width: 300px; z-index: 400; }
   .progress-toast.visible { display: block; }
-
   .progress-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
   .progress-title { font-size: 13px; font-weight: 700; color: var(--text); }
   .progress-pct { font-size: 13px; font-weight: 700; color: var(--green); }
-
   .progress-track { height: 5px; background: var(--bg3); border-radius: 100px; overflow: hidden; margin-bottom: 12px; }
-  .progress-fill { height: 100%; background: var(--green); border-radius: 100px; transition: width 0.4s ease; width: 0%; }
-
+  .progress-fill { height: 100%; background: var(--green); border-radius: 100px; transition: width .4s ease; width: 0%; }
   .p-steps { display: flex; flex-direction: column; gap: 7px; }
   .p-step { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted2); }
   .p-step.active { color: var(--text); font-weight: 500; }
@@ -477,14 +153,13 @@
   .p-step.active .p-dot { background: var(--green-light); animation: pulse 1s infinite; }
   .p-step.done .p-dot { background: var(--green); }
 
-  /* row anim */
-  .data-row { animation: fadeIn 0.25s ease both; }
-  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+  .data-row { animation: fadeIn .25s ease both; }
+  @keyframes fadeIn { from{opacity:0}to{opacity:1} }
 
-  @media (max-width: 900px) {
+  @media(max-width:900px) {
     .sidebar { display: none; }
     .content { padding: 16px; }
-    .topbar { padding: 0 16px; }
+    .topbar, .filters-bar { padding: 0 16px; }
     .filters-bar { padding: 10px 16px; }
     .expand-inner { grid-template-columns: 1fr; }
     .admin-modal { width: calc(100vw - 32px); }
@@ -492,15 +167,12 @@
 </style>
 </head>
 <body>
-
 <div class="layout">
 
-  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-logo">
-      <div class="logo-text"><div class="logo-dot"></div>seeko</div>
+      <div class="logo-text" id="logoClick"><div class="logo-dot"></div>seeko</div>
     </div>
-
     <div class="sidebar-section">
       <div class="sidebar-label">Research</div>
       <div class="nav-item active"><span class="icon">🔍</span> Product Finder <span class="nav-badge">AI</span></div>
@@ -508,26 +180,22 @@
       <div class="nav-item"><span class="icon">📈</span> Trending</div>
       <div class="nav-item"><span class="icon">🕵️</span> Competitor Spy</div>
     </div>
-
     <div class="sidebar-section">
       <div class="sidebar-label">Intelligence</div>
       <div class="nav-item"><span class="icon">📱</span> TikTok Spy</div>
       <div class="nav-item"><span class="icon">📘</span> Facebook Ads</div>
       <div class="nav-item"><span class="icon">🛒</span> Sales Tracker</div>
     </div>
-
-    <div style="margin-top: 12px;">
+    <div style="margin-top:12px">
       <div class="updated-tag" id="updatedTag">✅ Updated today</div>
     </div>
   </aside>
 
-  <!-- MAIN -->
   <div class="main">
-
     <div class="topbar">
       <div class="topbar-title">Product Finder</div>
       <div class="topbar-right">
-        <button class="btn btn-outline btn-sm" onclick="toggleFilter()">Filter ▾</button>
+        <button class="btn btn-outline btn-sm" onclick="openAdmin()">⚙️ Admin</button>
       </div>
     </div>
 
@@ -555,12 +223,12 @@
           <div class="portfolio-icon">🏆</div>
           <div>
             <div class="portfolio-text-title">Top 100 Winning Products — Updated Daily</div>
-            <div class="portfolio-text-sub" id="bannerSub">AI scans TikTok, Amazon & AliExpress every day to find what's winning right now</div>
+            <div class="portfolio-text-sub" id="bannerSub">AI scans TikTok, Amazon & AliExpress every day</div>
           </div>
         </div>
       </div>
 
-      <table class="product-table" id="productTable">
+      <table class="product-table">
         <thead>
           <tr>
             <th style="width:44px">#</th>
@@ -579,40 +247,33 @@
   </div>
 </div>
 
-<!-- ADMIN MODAL -->
-<div class="admin-overlay" id="adminOverlay" onclick="closeAdminIfBg(event)">
+<!-- ADMIN -->
+<div class="admin-overlay" id="adminOverlay" onclick="closeAdminBg(event)">
   <div class="admin-modal">
     <div class="admin-title">🔐 Admin — Refresh Products</div>
-    <div class="admin-sub">Enter your Claude API key to fetch today's top 100 winning products. Users will see them instantly after.</div>
-
+    <div class="admin-sub">Enter your Claude API key and admin password. Products will update for all visitors instantly.</div>
     <div class="admin-field">
       <div class="admin-label">Claude API Key</div>
       <input class="admin-input" type="password" id="adminApiKey" placeholder="sk-ant-api03-..." />
     </div>
-
     <div class="admin-field">
       <div class="admin-label">Admin Password</div>
       <input class="admin-input" type="password" id="adminPass" placeholder="Your secret password" />
     </div>
-
     <div class="admin-actions">
-      <button class="btn btn-primary" id="refreshBtn" onclick="runRefresh()" style="flex:1">
-        <span id="refreshBtnText">🔄 Refresh Products Now</span>
-      </button>
+      <button class="btn btn-primary" id="refreshBtn" onclick="runRefresh()" style="flex:1">🔄 Refresh Products Now</button>
       <button class="btn btn-outline" onclick="closeAdmin()">Cancel</button>
     </div>
   </div>
 </div>
 
-<!-- PROGRESS TOAST -->
+<!-- PROGRESS -->
 <div class="progress-toast" id="progressToast">
   <div class="progress-header">
     <div class="progress-title">Refreshing products...</div>
     <div class="progress-pct" id="progressPct">0%</div>
   </div>
-  <div class="progress-track">
-    <div class="progress-fill" id="progressFill"></div>
-  </div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
   <div class="p-steps">
     <div class="p-step" id="ps1"><div class="p-dot"></div>Scanning TikTok & Amazon trends</div>
     <div class="p-step" id="ps2"><div class="p-dot"></div>Analyzing AliExpress bestsellers</div>
@@ -621,50 +282,47 @@
   </div>
 </div>
 
-<!-- SECRET ADMIN TRIGGER: click logo 5x -->
 <script>
-// ── CONFIG ──────────────────────────────────────────────
-const ADMIN_PASSWORD = 'seeko2025'; // change this!
+const ADMIN_PASSWORD = 'seeko2025';
 const STORAGE_KEY    = 'seeko_products_v1';
 const STORAGE_DATE   = 'seeko_updated_v1';
-// ────────────────────────────────────────────────────────
 
-let allProducts  = [];
+// Der API-Proxy URL — wird automatisch korrekt wenn auf Vercel deployed
+const API_URL = window.location.hostname === 'localhost' || window.location.protocol === 'file:'
+  ? 'https://api.anthropic.com/v1/messages'  // lokal direkt (wird CORS haben)
+  : '/api/claude';                             // auf Vercel: geht durch Proxy ✅
+
+let allProducts = [];
 let activeFilter = 'all';
-let logoClicks   = 0;
-let clickTimer   = null;
 
-// Secret: click logo 5 times quickly to open admin
-document.querySelector('.logo-text').addEventListener('click', () => {
-  logoClicks++;
-  clearTimeout(clickTimer);
-  clickTimer = setTimeout(() => logoClicks = 0, 2000);
-  if (logoClicks >= 5) { logoClicks = 0; openAdmin(); }
-});
+// Admin öffnen
+function openAdmin() { document.getElementById('adminOverlay').classList.add('open'); }
+function closeAdmin() { document.getElementById('adminOverlay').classList.remove('open'); }
+function closeAdminBg(e) { if(e.target===document.getElementById('adminOverlay')) closeAdmin(); }
 
-// ── ADMIN ────────────────────────────────────────────────
-function openAdmin() {
-  document.getElementById('adminOverlay').classList.add('open');
+// Steps
+function setStep(n) {
+  for(let i=1;i<=4;i++){
+    const el=document.getElementById('ps'+i);
+    el.classList.remove('active','done');
+    if(i<n) el.classList.add('done');
+    if(i===n) el.classList.add('active');
+  }
+  setPct(Math.round((n/4)*25));
 }
-
-function closeAdmin() {
-  document.getElementById('adminOverlay').classList.remove('open');
-}
-
-function closeAdminIfBg(e) {
-  if (e.target === document.getElementById('adminOverlay')) closeAdmin();
+function setPct(p) {
+  document.getElementById('progressFill').style.width=p+'%';
+  document.getElementById('progressPct').textContent=p+'%';
 }
 
 async function runRefresh() {
   const apiKey = document.getElementById('adminApiKey').value.trim();
   const pass   = document.getElementById('adminPass').value.trim();
-
-  if (pass !== ADMIN_PASSWORD) { alert('Wrong admin password.'); return; }
-  if (!apiKey) { alert('Enter your Claude API key.'); return; }
+  if(pass !== ADMIN_PASSWORD) { alert('Wrong admin password.'); return; }
+  if(!apiKey) { alert('Enter your Claude API key.'); return; }
 
   closeAdmin();
   document.getElementById('refreshBtn').disabled = true;
-  document.getElementById('refreshBtnText').textContent = '⏳ Working...';
   document.getElementById('progressToast').classList.add('visible');
   setStep(1);
 
@@ -675,9 +333,6 @@ Search for:
 - TikTok shop winning products May 2025
 - Amazon movers and shakers bestsellers 2025
 - AliExpress hot selling products high margin 2025
-- best dropshipping products to sell right now 2025
-
-Based on your real web research, give me exactly 100 products ranked 1-100 from absolute best to worst for dropshipping RIGHT NOW.
 
 Return ONLY a valid raw JSON array. No markdown. No backticks. No explanation. Just the array:
 
@@ -691,93 +346,66 @@ Return ONLY a valid raw JSON array. No markdown. No backticks. No explanation. J
     "score": 96,
     "margin": "28",
     "sellPrice": "44.99",
-    "why": "One sentence why this wins right now based on real market data.",
+    "why": "One sentence why this wins right now.",
     "audience": "Specific target audience for ads",
     "trendScore": 94,
     "competitionScore": 42,
     "profitScore": 91,
-    "hooks": [
-      "Hook 1 — curiosity angle for TikTok/Meta",
-      "Hook 2 — problem/solution angle",
-      "Hook 3 — social proof or urgency angle"
-    ]
+    "hooks": ["Hook 1", "Hook 2", "Hook 3"]
   }
 ]
 
-Rules:
-- trend: exactly "Hot", "Rising", or "Cooling"
-- score, trendScore, competitionScore, profitScore: numbers 1-100
-- margin and sellPrice: numbers only, no dollar sign
-- emoji: one relevant emoji
-- All 100 must be real products trending based on your web search today`;
+Rules: trend = exactly "Hot", "Rising", or "Cooling". margin and sellPrice = numbers only. Generate all 100 products.`;
 
   try {
-    setStep(1);
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-calls': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 16000,
-        stream: true,
-        tools: [{ type: 'web_search_20250305', name: 'web_search', max_uses: 5 }],
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
+    const isVercel = window.location.hostname !== 'localhost' && window.location.protocol !== 'file:';
 
-    if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.error?.message || 'API error ' + response.status);
-    }
+    let products = [];
 
-    const reader  = response.body.getReader();
-    const decoder = new TextDecoder();
-    let fullText  = '';
-    let stepMark  = 1;
+    if (isVercel) {
+      // Vercel Proxy — kein CORS Problem
+      setStep(2);
+      const response = await fetch('/api/claude', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 16000,
+          tools: [{ type: 'web_search_20250305', name: 'web_search', max_uses: 5 }],
+          messages: [{ role: 'user', content: prompt }]
+        })
+      });
 
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-
-      const lines = decoder.decode(value).split('\n');
-      for (const line of lines) {
-        if (!line.startsWith('data: ')) continue;
-        const data = line.slice(6).trim();
-        if (!data || data === '[DONE]') continue;
-        try {
-          const evt = JSON.parse(data);
-          if (evt.type === 'content_block_delta' && evt.delta?.type === 'text_delta') {
-            fullText += evt.delta.text;
-
-            if (stepMark === 1 && fullText.length > 300)        { setStep(2); stepMark = 2; }
-            if (stepMark === 2 && fullText.includes('"rank"'))   { setStep(3); stepMark = 3; }
-            if (stepMark === 3 && fullText.includes('"hooks"'))  { setStep(4); stepMark = 4; }
-
-            // live render partial
-            const partial = parseProducts(fullText);
-            if (partial.length > allProducts.length && partial.length >= 5) {
-              allProducts = partial;
-              renderTable(allProducts);
-              const pct = Math.min(10 + Math.round((partial.length / 100) * 85), 95);
-              setPct(pct);
-            }
-          }
-        } catch(e) {}
+      if(!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error?.message || 'API error ' + response.status);
       }
+
+      setStep(3);
+      const data = await response.json();
+      setStep(4);
+
+      // Extract text from response
+      const text = data.content
+        ?.filter(b => b.type === 'text')
+        ?.map(b => b.text)
+        ?.join('') || '';
+
+      products = parseProducts(text);
+
+    } else {
+      // Lokal: direkt (zeigt CORS error — nur auf Vercel nutzen)
+      throw new Error('Please deploy to Vercel first. Open the Admin panel on your vercel.app URL.');
     }
 
     setPct(100);
 
-    const final = parseProducts(fullText);
-    if (final.length > 0) {
-      allProducts = final;
-      // SAVE to localStorage so all visitors see them
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(final));
+    if(products.length > 0) {
+      allProducts = products;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
       localStorage.setItem(STORAGE_DATE, new Date().toISOString());
       renderTable(allProducts);
       showUpdatedTag();
@@ -789,211 +417,143 @@ Rules:
     alert('Error: ' + err.message);
   } finally {
     document.getElementById('refreshBtn').disabled = false;
-    document.getElementById('refreshBtnText').textContent = '🔄 Refresh Products Now';
     setTimeout(() => document.getElementById('progressToast').classList.remove('visible'), 2000);
   }
 }
 
-// ── STEPS & PROGRESS ────────────────────────────────────
-function setStep(n) {
-  for (let i = 1; i <= 4; i++) {
-    const el = document.getElementById('ps' + i);
-    el.classList.remove('active','done');
-    if (i < n) el.classList.add('done');
-    if (i === n) el.classList.add('active');
-  }
-  setPct(Math.round((n / 4) * 25));
-}
-
-function setPct(pct) {
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressPct').textContent = pct + '%';
-}
-
-// ── PARSE JSON ──────────────────────────────────────────
 function parseProducts(text) {
   const starts = [];
-  for (let i = 0; i < text.length; i++) if (text[i] === '[') starts.push(i);
-  for (const start of starts) {
-    let depth = 0, end = -1;
-    for (let i = start; i < text.length; i++) {
-      if (text[i]==='['||text[i]==='{') depth++;
-      if (text[i]===']'||text[i]==='}') depth--;
-      if (depth===0 && text[i]===']') { end=i; break; }
+  for(let i=0;i<text.length;i++) if(text[i]==='[') starts.push(i);
+  for(const start of starts) {
+    let depth=0, end=-1;
+    for(let i=start;i<text.length;i++) {
+      if(text[i]==='['||text[i]==='{') depth++;
+      if(text[i]===']'||text[i]==='}') depth--;
+      if(depth===0&&text[i]===']'){end=i;break;}
     }
-    if (end > start) {
+    if(end>start) {
       try {
-        const arr = JSON.parse(text.slice(start, end+1));
-        if (Array.isArray(arr) && arr.length > 0 && arr[0].name) return arr;
-      } catch(e) {}
+        const arr=JSON.parse(text.slice(start,end+1));
+        if(Array.isArray(arr)&&arr.length>0&&arr[0].name) return arr;
+      } catch(e){}
     }
   }
   return [];
 }
 
-// ── FILTER & SORT ────────────────────────────────────────
 function setFilter(cat, btn) {
   activeFilter = cat;
-  document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.filter-chip').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   renderTable(allProducts);
 }
 
 function sortProducts(val) {
-  const sorted = [...allProducts];
-  if (val === 'score')  sorted.sort((a,b) => b.score - a.score);
-  if (val === 'margin') sorted.sort((a,b) => parseFloat(b.margin||0) - parseFloat(a.margin||0));
-  if (val === 'rank')   sorted.sort((a,b) => a.rank - b.rank);
-  renderTable(sorted);
+  const s=[...allProducts];
+  if(val==='score') s.sort((a,b)=>b.score-a.score);
+  if(val==='margin') s.sort((a,b)=>parseFloat(b.margin||0)-parseFloat(a.margin||0));
+  if(val==='rank') s.sort((a,b)=>a.rank-b.rank);
+  renderTable(s);
 }
 
-function toggleFilter() {} // placeholder for future
-
-// ── RENDER ───────────────────────────────────────────────
 function renderTable(products) {
-  const filtered = activeFilter === 'all'
-    ? products
-    : products.filter(p => (p.category||'').toLowerCase() === activeFilter.toLowerCase());
-
+  const filtered = activeFilter==='all' ? products : products.filter(p=>(p.category||'').toLowerCase()===activeFilter.toLowerCase());
   const countEl = document.getElementById('resultsCount');
-  if (products.length > 0) {
-    countEl.innerHTML = `Showing <span>${filtered.length}</span> of ${products.length} products`;
-  }
+  if(products.length>0) countEl.innerHTML=`Showing <span>${filtered.length}</span> of ${products.length} products`;
 
   const tbody = document.getElementById('productBody');
-
-  if (products.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state">
+  if(products.length===0) {
+    tbody.innerHTML=`<tr><td colspan="8"><div class="empty-state">
       <div class="empty-icon">🔍</div>
       <div class="empty-title">Products loading soon</div>
-      <div class="empty-sub">Our team updates the product list daily. Check back shortly.</div>
+      <div class="empty-sub">Our team updates the product list daily. Check back shortly — or click ⚙️ Admin to refresh now.</div>
     </div></td></tr>`;
     return;
   }
-
-  if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state">
-      <div class="empty-icon">🔎</div>
-      <div class="empty-title">No products in this category</div>
-      <div class="empty-sub">Try a different filter.</div>
-    </div></td></tr>`;
+  if(filtered.length===0) {
+    tbody.innerHTML=`<tr><td colspan="8"><div class="empty-state"><div class="empty-icon">🔎</div><div class="empty-title">No products in this category</div></div></td></tr>`;
     return;
   }
 
-  tbody.innerHTML = filtered.map((p, i) => {
-    const rank      = p.rank || (i+1);
-    const rankClass = rank<=3 ? 'top3' : rank<=10 ? 'top10' : '';
-    const score     = Number(p.score) || 0;
-    const scoreClass= score>=80 ? 'score-high' : score>=60 ? 'score-mid' : 'score-low';
-    const trendClass= p.trend==='Hot' ? 'trend-hot' : p.trend==='Rising' ? 'trend-rising' : 'trend-cooling';
-    const trendEmoji= p.trend==='Hot' ? '🔥' : p.trend==='Rising' ? '📈' : '💤';
-    const margin    = p.margin ? '$'+p.margin : '—';
-    const sell      = p.sellPrice ? '$'+p.sellPrice : '—';
-    const delay     = Math.min(i*15, 400);
-    const hooks     = (p.hooks||[]).map(h=>`<div class="hook-item">${h}</div>`).join('');
-    const aliUrl    = `https://www.aliexpress.com/wholesale?SearchText=${encodeURIComponent(p.name)}`;
-    const ts = Number(p.trendScore)||score;
-    const cs = Number(p.competitionScore)||50;
-    const ps = Number(p.profitScore)||score;
+  tbody.innerHTML = filtered.map((p,i) => {
+    const rank=p.rank||(i+1);
+    const rankClass=rank<=3?'top3':rank<=10?'top10':'';
+    const score=Number(p.score)||0;
+    const scoreClass=score>=80?'score-high':score>=60?'score-mid':'score-low';
+    const trendClass=p.trend==='Hot'?'trend-hot':p.trend==='Rising'?'trend-rising':'trend-cooling';
+    const trendEmoji=p.trend==='Hot'?'🔥':p.trend==='Rising'?'📈':'💤';
+    const margin=p.margin?'$'+p.margin:'—';
+    const sell=p.sellPrice?'$'+p.sellPrice:'—';
+    const delay=Math.min(i*15,400);
+    const hooks=(p.hooks||[]).map(h=>`<div class="hook-item">${h}</div>`).join('');
+    const aliUrl=`https://www.aliexpress.com/wholesale?SearchText=${encodeURIComponent(p.name)}`;
+    const ts=Number(p.trendScore)||score;
+    const cs=Number(p.competitionScore)||50;
+    const ps=Number(p.profitScore)||score;
 
     return `
       <tr class="data-row" style="animation-delay:${delay}ms" onclick="toggleRow(this,'${i}')">
         <td><div class="cell-rank ${rankClass}">#${rank}</div></td>
-        <td>
-          <div class="cell-product">
-            <div class="product-emoji-box">${p.emoji||'📦'}</div>
-            <div>
-              <div class="product-name-cell">${p.name}</div>
-              <div class="product-cat">${p.category||''}</div>
-            </div>
-          </div>
-        </td>
+        <td><div class="cell-product">
+          <div class="product-emoji-box">${p.emoji||'📦'}</div>
+          <div><div class="product-name-cell">${p.name}</div><div class="product-cat">${p.category||''}</div></div>
+        </div></td>
         <td><span class="trend-badge ${trendClass}">${trendEmoji} ${p.trend}</span></td>
         <td style="text-align:center"><div class="score-circle ${scoreClass}">${score}</div></td>
         <td><div class="cell-margin">${margin}</div></td>
         <td><div class="cell-price">${sell}</div></td>
         <td><div class="cell-why">${p.why||''}</div></td>
-        <td>
-          <div class="cell-actions">
-            <a class="btn btn-green-ghost btn-sm" href="${aliUrl}" target="_blank" onclick="event.stopPropagation()">Supplier →</a>
-            <span class="chevron">▼</span>
-          </div>
-        </td>
+        <td><div class="cell-actions">
+          <a class="btn btn-green-ghost btn-sm" href="${aliUrl}" target="_blank" onclick="event.stopPropagation()">Supplier →</a>
+          <span class="chevron">▼</span>
+        </div></td>
       </tr>
       <tr class="expanded-row" id="exp-${i}">
-        <td colspan="8">
-          <div class="expand-inner">
-            <div>
-              <div class="expand-block-title">⚡ Ad Hooks</div>
-              ${hooks}
-            </div>
-            <div>
-              <div class="expand-block-title">🎯 Target Audience</div>
-              <div class="audience-box">${p.audience||'—'}</div>
-              <a class="btn btn-primary btn-sm" href="${aliUrl}" target="_blank">Find on AliExpress →</a>
-            </div>
-            <div>
-              <div class="expand-block-title">📊 Score Breakdown</div>
-              <div class="score-breakdown">
-                <div class="score-bar-row">
-                  <div class="score-bar-label">Trend</div>
-                  <div class="score-bar-track"><div class="score-bar-fill" style="width:${ts}%"></div></div>
-                  <div class="score-bar-val">${ts}</div>
-                </div>
-                <div class="score-bar-row">
-                  <div class="score-bar-label">Competition</div>
-                  <div class="score-bar-track"><div class="score-bar-fill" style="width:${cs}%"></div></div>
-                  <div class="score-bar-val">${cs}</div>
-                </div>
-                <div class="score-bar-row">
-                  <div class="score-bar-label">Profit</div>
-                  <div class="score-bar-track"><div class="score-bar-fill" style="width:${ps}%"></div></div>
-                  <div class="score-bar-val">${ps}</div>
-                </div>
-              </div>
+        <td colspan="8"><div class="expand-inner">
+          <div><div class="expand-block-title">⚡ Ad Hooks</div>${hooks}</div>
+          <div>
+            <div class="expand-block-title">🎯 Target Audience</div>
+            <div class="audience-box">${p.audience||'—'}</div>
+            <a class="btn btn-primary btn-sm" href="${aliUrl}" target="_blank">Find on AliExpress →</a>
+          </div>
+          <div>
+            <div class="expand-block-title">📊 Score Breakdown</div>
+            <div class="score-breakdown">
+              <div class="score-bar-row"><div class="score-bar-label">Trend</div><div class="score-bar-track"><div class="score-bar-fill" style="width:${ts}%"></div></div><div class="score-bar-val">${ts}</div></div>
+              <div class="score-bar-row"><div class="score-bar-label">Competition</div><div class="score-bar-track"><div class="score-bar-fill" style="width:${cs}%"></div></div><div class="score-bar-val">${cs}</div></div>
+              <div class="score-bar-row"><div class="score-bar-label">Profit</div><div class="score-bar-track"><div class="score-bar-fill" style="width:${ps}%"></div></div><div class="score-bar-val">${ps}</div></div>
             </div>
           </div>
-        </td>
+        </div></td>
       </tr>`;
   }).join('');
 }
 
 function toggleRow(row, idx) {
-  const expRow = document.getElementById('exp-'+idx);
-  const isOpen = expRow.classList.contains('open');
-  document.querySelectorAll('.expanded-row').forEach(r => r.classList.remove('open'));
-  document.querySelectorAll('.data-row').forEach(r => r.classList.remove('expanded'));
-  if (!isOpen) { expRow.classList.add('open'); row.classList.add('expanded'); }
+  const exp=document.getElementById('exp-'+idx);
+  const isOpen=exp.classList.contains('open');
+  document.querySelectorAll('.expanded-row').forEach(r=>r.classList.remove('open'));
+  document.querySelectorAll('.data-row').forEach(r=>r.classList.remove('expanded'));
+  if(!isOpen){exp.classList.add('open');row.classList.add('expanded');}
 }
 
-// ── UPDATED TAG ──────────────────────────────────────────
 function showUpdatedTag() {
-  const date = localStorage.getItem(STORAGE_DATE);
-  const tag  = document.getElementById('updatedTag');
-  const sub  = document.getElementById('bannerSub');
-  if (date) {
-    const d = new Date(date);
-    const str = d.toLocaleDateString('en-US', { month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' });
-    tag.textContent = '✅ Last updated: ' + str;
+  const date=localStorage.getItem(STORAGE_DATE);
+  const tag=document.getElementById('updatedTag');
+  const sub=document.getElementById('bannerSub');
+  if(date){
+    const d=new Date(date);
+    const str=d.toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+    tag.textContent='✅ Last updated: '+str;
     tag.classList.add('visible');
-    sub.textContent = 'Last refreshed ' + str + ' · Updated daily by the Seeko team';
+    sub.textContent='Last refreshed '+str+' · Updated daily by the Seeko team';
   }
 }
 
-// ── BOOT — load saved products on page open ───────────────
 window.addEventListener('load', () => {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (saved) {
-    try {
-      allProducts = JSON.parse(saved);
-      renderTable(allProducts);
-      showUpdatedTag();
-    } catch(e) {
-      renderTable([]);
-    }
-  } else {
-    renderTable([]);
-  }
+  const saved=localStorage.getItem(STORAGE_KEY);
+  if(saved){try{allProducts=JSON.parse(saved);renderTable(allProducts);showUpdatedTag();}catch(e){renderTable([]);}}
+  else renderTable([]);
 });
 </script>
 </body>
