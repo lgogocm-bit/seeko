@@ -22,7 +22,6 @@
   body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; min-height: 100vh; }
   .layout { display: flex; min-height: 100vh; }
 
-  /* SIDEBAR */
   .sidebar { width: 240px; flex-shrink: 0; background: var(--bg); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
   .sidebar-logo { padding: 20px 20px 16px; border-bottom: 1px solid var(--border); }
   .logo-text { font-size: 20px; font-weight: 800; color: var(--green); letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
@@ -38,7 +37,6 @@
   .updated-tag { margin: 0 12px 12px; background: var(--green-pale); border: 1px solid var(--green-pale2); border-radius: 8px; padding: 8px 12px; font-size: 11.5px; color: var(--green); font-weight: 500; display: none; }
   .updated-tag.visible { display: block; }
 
-  /* MAIN */
   .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
   .topbar { position: sticky; top: 0; z-index: 50; background: var(--bg); border-bottom: 1px solid var(--border); padding: 0 28px; height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
   .topbar-title { font-size: 15px; font-weight: 700; }
@@ -54,7 +52,6 @@
   .btn-green-ghost { background: var(--green-pale); border: 1px solid var(--green-pale2); color: var(--green); font-weight: 600; }
   .btn-green-ghost:hover { background: var(--green-pale2); }
 
-  /* FILTERS */
   .filters-bar { padding: 14px 28px; background: var(--bg); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .filter-group { display: flex; align-items: center; gap: 4px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 4px; }
   .filter-chip { padding: 5px 12px; border-radius: 6px; font-size: 12.5px; font-weight: 500; color: var(--muted); cursor: pointer; transition: all .12s; border: none; background: transparent; font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -64,7 +61,6 @@
   .results-count { margin-left: auto; font-size: 12.5px; color: var(--muted); font-weight: 500; }
   .results-count span { color: var(--green); font-weight: 700; }
 
-  /* CONTENT */
   .content { padding: 20px 28px; flex: 1; }
   .portfolio-banner { background: linear-gradient(135deg,var(--green-pale) 0%,var(--bg) 100%); border: 1px solid var(--green-pale2); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
   .portfolio-left { display: flex; align-items: center; gap: 12px; }
@@ -72,7 +68,6 @@
   .portfolio-text-title { font-size: 13.5px; font-weight: 700; color: var(--green-dark); }
   .portfolio-text-sub { font-size: 12px; color: var(--muted); margin-top: 1px; }
 
-  /* TABLE */
   .product-table { width: 100%; border-collapse: separate; border-spacing: 0; }
   .product-table thead tr th { padding: 8px 12px; text-align: left; font-size: 11px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--muted2); border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 56px; z-index: 10; }
   .product-table tbody tr { transition: background .1s; cursor: pointer; }
@@ -96,7 +91,6 @@
   .score-bar-fill { height: 100%; background: var(--green); border-radius: 100px; }
   .score-bar-val { font-size: 12px; font-weight: 700; color: var(--green); width: 28px; text-align: right; }
 
-  /* CELLS */
   .cell-rank { font-size: 13px; font-weight: 700; color: var(--muted2); }
   .cell-rank.top3 { color: var(--yellow); }
   .cell-rank.top10 { color: var(--green); }
@@ -119,13 +113,16 @@
   .chevron { font-size: 11px; color: var(--muted2); transition: transform .2s; }
   .expanded .chevron { transform: rotate(180deg); }
 
-  /* EMPTY */
   .empty-state { text-align: center; padding: 80px 20px; }
   .empty-icon { font-size: 48px; margin-bottom: 16px; }
   .empty-title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
   .empty-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; max-width: 360px; margin-left: auto; margin-right: auto; line-height: 1.6; }
 
-  /* ADMIN MODAL */
+  /* LOADING ROW */
+  .loading-row td { padding: 10px 12px !important; }
+  .skeleton { height: 14px; background: linear-gradient(90deg, var(--bg3) 25%, var(--bg2) 50%, var(--bg3) 75%); background-size: 200% 100%; animation: shimmer 1.2s infinite; border-radius: 6px; }
+  @keyframes shimmer { 0%{background-position:200% 0}100%{background-position:-200% 0} }
+
   .admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); backdrop-filter: blur(4px); z-index: 300; align-items: center; justify-content: center; }
   .admin-overlay.open { display: flex; }
   .admin-modal { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 28px; width: 440px; box-shadow: var(--shadow-lg); }
@@ -137,7 +134,6 @@
   .admin-input:focus { border-color: var(--green); }
   .admin-actions { display: flex; gap: 10px; margin-top: 20px; }
 
-  /* PROGRESS */
   .progress-toast { display: none; position: fixed; bottom: 24px; right: 24px; background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow-lg); width: 300px; z-index: 400; }
   .progress-toast.visible { display: block; }
   .progress-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
@@ -145,13 +141,8 @@
   .progress-pct { font-size: 13px; font-weight: 700; color: var(--green); }
   .progress-track { height: 5px; background: var(--bg3); border-radius: 100px; overflow: hidden; margin-bottom: 12px; }
   .progress-fill { height: 100%; background: var(--green); border-radius: 100px; transition: width .4s ease; width: 0%; }
-  .p-steps { display: flex; flex-direction: column; gap: 7px; }
-  .p-step { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted2); }
-  .p-step.active { color: var(--text); font-weight: 500; }
-  .p-step.done { color: var(--green); }
-  .p-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border2); flex-shrink: 0; }
-  .p-step.active .p-dot { background: var(--green-light); animation: pulse 1s infinite; }
-  .p-step.done .p-dot { background: var(--green); }
+  .progress-status { font-size: 12px; color: var(--muted); }
+  .progress-status span { color: var(--green); font-weight: 600; }
 
   .data-row { animation: fadeIn .25s ease both; }
   @keyframes fadeIn { from{opacity:0}to{opacity:1} }
@@ -168,7 +159,6 @@
 </head>
 <body>
 <div class="layout">
-
   <aside class="sidebar">
     <div class="sidebar-logo">
       <div class="logo-text" id="logoClick"><div class="logo-dot"></div>seeko</div>
@@ -223,7 +213,7 @@
           <div class="portfolio-icon">🏆</div>
           <div>
             <div class="portfolio-text-title">Top 100 Winning Products — Updated Daily</div>
-            <div class="portfolio-text-sub" id="bannerSub">AI scans TikTok, Amazon & AliExpress every day</div>
+            <div class="portfolio-text-sub" id="bannerSub">AI scans TikTok, Amazon & AliExpress every day to find what's winning right now</div>
           </div>
         </div>
       </div>
@@ -251,7 +241,7 @@
 <div class="admin-overlay" id="adminOverlay" onclick="closeAdminBg(event)">
   <div class="admin-modal">
     <div class="admin-title">🔐 Admin — Refresh Products</div>
-    <div class="admin-sub">Enter your Claude API key and admin password. Products will update for all visitors instantly.</div>
+    <div class="admin-sub">Claude fetches 10 products at a time across 10 niches. The table fills up live as each batch comes in — takes about 2 minutes total.</div>
     <div class="admin-field">
       <div class="admin-label">Claude API Key</div>
       <input class="admin-input" type="password" id="adminApiKey" placeholder="sk-ant-api03-..." />
@@ -270,49 +260,67 @@
 <!-- PROGRESS -->
 <div class="progress-toast" id="progressToast">
   <div class="progress-header">
-    <div class="progress-title">Refreshing products...</div>
+    <div class="progress-title">Finding winning products...</div>
     <div class="progress-pct" id="progressPct">0%</div>
   </div>
   <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-  <div class="p-steps">
-    <div class="p-step" id="ps1"><div class="p-dot"></div>Scanning TikTok & Amazon trends</div>
-    <div class="p-step" id="ps2"><div class="p-dot"></div>Analyzing AliExpress bestsellers</div>
-    <div class="p-step" id="ps3"><div class="p-dot"></div>AI scoring all products</div>
-    <div class="p-step" id="ps4"><div class="p-dot"></div>Generating hooks & insights</div>
-  </div>
+  <div class="progress-status" id="progressStatus">Starting search...</div>
 </div>
 
 <script>
 const ADMIN_PASSWORD = 'seeko2025';
-const STORAGE_KEY    = 'seeko_products_v1';
-const STORAGE_DATE   = 'seeko_updated_v1';
+const STORAGE_KEY    = 'seeko_products_v2';
+const STORAGE_DATE   = 'seeko_updated_v2';
+const TOTAL_BATCHES  = 10;
 
-// Der API-Proxy URL — wird automatisch korrekt wenn auf Vercel deployed
-const API_URL = window.location.hostname === 'localhost' || window.location.protocol === 'file:'
-  ? 'https://api.anthropic.com/v1/messages'  // lokal direkt (wird CORS haben)
-  : '/api/claude';                             // auf Vercel: geht durch Proxy ✅
-
-let allProducts = [];
+let allProducts  = [];
 let activeFilter = 'all';
 
-// Admin öffnen
-function openAdmin() { document.getElementById('adminOverlay').classList.add('open'); }
+function openAdmin()  { document.getElementById('adminOverlay').classList.add('open'); }
 function closeAdmin() { document.getElementById('adminOverlay').classList.remove('open'); }
 function closeAdminBg(e) { if(e.target===document.getElementById('adminOverlay')) closeAdmin(); }
 
-// Steps
-function setStep(n) {
-  for(let i=1;i<=4;i++){
-    const el=document.getElementById('ps'+i);
-    el.classList.remove('active','done');
-    if(i<n) el.classList.add('done');
-    if(i===n) el.classList.add('active');
-  }
-  setPct(Math.round((n/4)*25));
-}
 function setPct(p) {
-  document.getElementById('progressFill').style.width=p+'%';
-  document.getElementById('progressPct').textContent=p+'%';
+  document.getElementById('progressFill').style.width = p + '%';
+  document.getElementById('progressPct').textContent  = Math.round(p) + '%';
+}
+
+function setStatus(msg) {
+  document.getElementById('progressStatus').innerHTML = msg;
+}
+
+function parseProducts(text) {
+  const starts = [];
+  for(let i = 0; i < text.length; i++) if(text[i]==='[') starts.push(i);
+  for(const start of starts) {
+    let depth = 0, end = -1;
+    for(let i = start; i < text.length; i++) {
+      if(text[i]==='['||text[i]==='{') depth++;
+      if(text[i]===']'||text[i]==='}') depth--;
+      if(depth===0&&text[i]===']'){end=i;break;}
+    }
+    if(end > start) {
+      try {
+        const arr = JSON.parse(text.slice(start, end+1));
+        if(Array.isArray(arr) && arr.length > 0 && arr[0].name) return arr;
+      } catch(e) {}
+    }
+  }
+  return [];
+}
+
+async function fetchBatch(apiKey, batchNum) {
+  const response = await fetch('/api/claude', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
+    body: JSON.stringify({ batch: batchNum })
+  });
+  if(!response.ok) {
+    const err = await response.json();
+    throw new Error(err.error || 'Batch ' + batchNum + ' failed');
+  }
+  const data = await response.json();
+  return parseProducts(data.text || '');
 }
 
 async function runRefresh() {
@@ -324,175 +332,111 @@ async function runRefresh() {
   closeAdmin();
   document.getElementById('refreshBtn').disabled = true;
   document.getElementById('progressToast').classList.add('visible');
-  setStep(1);
+  setPct(0);
 
-  const prompt = `You are a world-class dropshipping product research expert. Search the web right now to find the 100 best trending dropshipping products in May 2025.
+  const niches = ['Tech','Beauty','Home','Fashion','Pets','Sports','Kids','Outdoor','Health','Car'];
+  const newProducts = [];
 
-Search for:
-- trending dropshipping products 2025
-- TikTok shop winning products May 2025
-- Amazon movers and shakers bestsellers 2025
-- AliExpress hot selling products high margin 2025
+  for(let batch = 1; batch <= TOTAL_BATCHES; batch++) {
+    const niche = niches[batch - 1];
+    setStatus(`Searching <span>${niche}</span> products... (${batch}/${TOTAL_BATCHES})`);
 
-Return ONLY a valid raw JSON array. No markdown. No backticks. No explanation. Just the array:
+    try {
+      const products = await fetchBatch(apiKey, batch);
+      newProducts.push(...products);
 
-[
-  {
-    "rank": 1,
-    "name": "Exact Product Name",
-    "category": "Tech",
-    "emoji": "📱",
-    "trend": "Hot",
-    "score": 96,
-    "margin": "28",
-    "sellPrice": "44.99",
-    "why": "One sentence why this wins right now.",
-    "audience": "Specific target audience for ads",
-    "trendScore": 94,
-    "competitionScore": 42,
-    "profitScore": 91,
-    "hooks": ["Hook 1", "Hook 2", "Hook 3"]
-  }
-]
-
-Rules: trend = exactly "Hot", "Rising", or "Cooling". margin and sellPrice = numbers only. Generate all 100 products.`;
-
-  try {
-    const isVercel = window.location.hostname !== 'localhost' && window.location.protocol !== 'file:';
-
-    let products = [];
-
-    if (isVercel) {
-      // Vercel Proxy — kein CORS Problem
-      setStep(2);
-      const response = await fetch('/api/claude', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey
-        },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 16000,
-          tools: [{ type: 'web_search_20250305', name: 'web_search', max_uses: 5 }],
-          messages: [{ role: 'user', content: prompt }]
-        })
-      });
-
-      if(!response.ok) {
-        const err = await response.json();
-        throw new Error(err.error?.message || 'API error ' + response.status);
-      }
-
-      setStep(3);
-      const data = await response.json();
-      setStep(4);
-
-      // Extract text from response
-      const text = data.content
-        ?.filter(b => b.type === 'text')
-        ?.map(b => b.text)
-        ?.join('') || '';
-
-      products = parseProducts(text);
-
-    } else {
-      // Lokal: direkt (zeigt CORS error — nur auf Vercel nutzen)
-      throw new Error('Please deploy to Vercel first. Open the Admin panel on your vercel.app URL.');
-    }
-
-    setPct(100);
-
-    if(products.length > 0) {
-      allProducts = products;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-      localStorage.setItem(STORAGE_DATE, new Date().toISOString());
+      // Live update table as each batch comes in
+      allProducts = [...newProducts].sort((a,b) => a.rank - b.rank);
       renderTable(allProducts);
-      showUpdatedTag();
-    } else {
-      alert('Could not parse products. Try again.');
+
+      const pct = (batch / TOTAL_BATCHES) * 100;
+      setPct(pct);
+
+    } catch(err) {
+      console.warn('Batch ' + batch + ' error:', err.message);
+      // Continue with next batch even if one fails
     }
 
-  } catch(err) {
-    alert('Error: ' + err.message);
-  } finally {
-    document.getElementById('refreshBtn').disabled = false;
-    setTimeout(() => document.getElementById('progressToast').classList.remove('visible'), 2000);
+    // Small delay between batches to avoid rate limiting
+    if(batch < TOTAL_BATCHES) await new Promise(r => setTimeout(r, 500));
   }
-}
 
-function parseProducts(text) {
-  const starts = [];
-  for(let i=0;i<text.length;i++) if(text[i]==='[') starts.push(i);
-  for(const start of starts) {
-    let depth=0, end=-1;
-    for(let i=start;i<text.length;i++) {
-      if(text[i]==='['||text[i]==='{') depth++;
-      if(text[i]===']'||text[i]==='}') depth--;
-      if(depth===0&&text[i]===']'){end=i;break;}
-    }
-    if(end>start) {
-      try {
-        const arr=JSON.parse(text.slice(start,end+1));
-        if(Array.isArray(arr)&&arr.length>0&&arr[0].name) return arr;
-      } catch(e){}
-    }
+  // Save to localStorage
+  if(newProducts.length > 0) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(allProducts));
+    localStorage.setItem(STORAGE_DATE, new Date().toISOString());
+    showUpdatedTag();
+    setStatus(`✅ Done! <span>${allProducts.length} products</span> loaded`);
+  } else {
+    setStatus('❌ No products found. Try again.');
   }
-  return [];
+
+  document.getElementById('refreshBtn').disabled = false;
+  setTimeout(() => document.getElementById('progressToast').classList.remove('visible'), 3000);
 }
 
 function setFilter(cat, btn) {
   activeFilter = cat;
-  document.querySelectorAll('.filter-chip').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderTable(allProducts);
 }
 
 function sortProducts(val) {
-  const s=[...allProducts];
-  if(val==='score') s.sort((a,b)=>b.score-a.score);
-  if(val==='margin') s.sort((a,b)=>parseFloat(b.margin||0)-parseFloat(a.margin||0));
-  if(val==='rank') s.sort((a,b)=>a.rank-b.rank);
+  const s = [...allProducts];
+  if(val==='score')  s.sort((a,b) => b.score - a.score);
+  if(val==='margin') s.sort((a,b) => parseFloat(b.margin||0) - parseFloat(a.margin||0));
+  if(val==='rank')   s.sort((a,b) => a.rank - b.rank);
   renderTable(s);
 }
 
 function renderTable(products) {
-  const filtered = activeFilter==='all' ? products : products.filter(p=>(p.category||'').toLowerCase()===activeFilter.toLowerCase());
+  const filtered = activeFilter==='all'
+    ? products
+    : products.filter(p => (p.category||'').toLowerCase().includes(activeFilter.toLowerCase()));
+
   const countEl = document.getElementById('resultsCount');
-  if(products.length>0) countEl.innerHTML=`Showing <span>${filtered.length}</span> of ${products.length} products`;
+  if(products.length > 0) {
+    countEl.innerHTML = `Showing <span>${filtered.length}</span> of ${products.length} products`;
+  }
 
   const tbody = document.getElementById('productBody');
-  if(products.length===0) {
-    tbody.innerHTML=`<tr><td colspan="8"><div class="empty-state">
+
+  if(products.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state">
       <div class="empty-icon">🔍</div>
       <div class="empty-title">Products loading soon</div>
-      <div class="empty-sub">Our team updates the product list daily. Check back shortly — or click ⚙️ Admin to refresh now.</div>
+      <div class="empty-sub">Click ⚙️ Admin to load today's top 100 winning products.</div>
     </div></td></tr>`;
     return;
   }
-  if(filtered.length===0) {
-    tbody.innerHTML=`<tr><td colspan="8"><div class="empty-state"><div class="empty-icon">🔎</div><div class="empty-title">No products in this category</div></div></td></tr>`;
+
+  if(filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state">
+      <div class="empty-icon">🔎</div>
+      <div class="empty-title">No products in this category</div>
+    </div></td></tr>`;
     return;
   }
 
-  tbody.innerHTML = filtered.map((p,i) => {
-    const rank=p.rank||(i+1);
-    const rankClass=rank<=3?'top3':rank<=10?'top10':'';
-    const score=Number(p.score)||0;
-    const scoreClass=score>=80?'score-high':score>=60?'score-mid':'score-low';
-    const trendClass=p.trend==='Hot'?'trend-hot':p.trend==='Rising'?'trend-rising':'trend-cooling';
-    const trendEmoji=p.trend==='Hot'?'🔥':p.trend==='Rising'?'📈':'💤';
-    const margin=p.margin?'$'+p.margin:'—';
-    const sell=p.sellPrice?'$'+p.sellPrice:'—';
-    const delay=Math.min(i*15,400);
-    const hooks=(p.hooks||[]).map(h=>`<div class="hook-item">${h}</div>`).join('');
-    const aliUrl=`https://www.aliexpress.com/wholesale?SearchText=${encodeURIComponent(p.name)}`;
-    const ts=Number(p.trendScore)||score;
-    const cs=Number(p.competitionScore)||50;
-    const ps=Number(p.profitScore)||score;
+  tbody.innerHTML = filtered.map((p, i) => {
+    const rank       = p.rank || (i+1);
+    const rankClass  = rank<=3 ? 'top3' : rank<=10 ? 'top10' : '';
+    const score      = Number(p.score) || 0;
+    const scoreClass = score>=80 ? 'score-high' : score>=60 ? 'score-mid' : 'score-low';
+    const trendClass = p.trend==='Hot' ? 'trend-hot' : p.trend==='Rising' ? 'trend-rising' : 'trend-cooling';
+    const trendEmoji = p.trend==='Hot' ? '🔥' : p.trend==='Rising' ? '📈' : '💤';
+    const margin     = p.margin ? '$'+p.margin : '—';
+    const sell       = p.sellPrice ? '$'+p.sellPrice : '—';
+    const delay      = Math.min(i * 15, 400);
+    const hooks      = (p.hooks||[]).map(h => `<div class="hook-item">${h}</div>`).join('');
+    const aliUrl     = `https://www.aliexpress.com/wholesale?SearchText=${encodeURIComponent(p.name)}`;
+    const ts         = Number(p.trendScore) || score;
+    const cs         = Number(p.competitionScore) || 50;
+    const ps         = Number(p.profitScore) || score;
 
     return `
-      <tr class="data-row" style="animation-delay:${delay}ms" onclick="toggleRow(this,'${i}')">
+      <tr class="data-row" style="animation-delay:${delay}ms" onclick="toggleRow(this,'r${i}')">
         <td><div class="cell-rank ${rankClass}">#${rank}</div></td>
         <td><div class="cell-product">
           <div class="product-emoji-box">${p.emoji||'📦'}</div>
@@ -508,7 +452,7 @@ function renderTable(products) {
           <span class="chevron">▼</span>
         </div></td>
       </tr>
-      <tr class="expanded-row" id="exp-${i}">
+      <tr class="expanded-row" id="r${i}">
         <td colspan="8"><div class="expand-inner">
           <div><div class="expand-block-title">⚡ Ad Hooks</div>${hooks}</div>
           <div>
@@ -529,31 +473,35 @@ function renderTable(products) {
   }).join('');
 }
 
-function toggleRow(row, idx) {
-  const exp=document.getElementById('exp-'+idx);
-  const isOpen=exp.classList.contains('open');
-  document.querySelectorAll('.expanded-row').forEach(r=>r.classList.remove('open'));
-  document.querySelectorAll('.data-row').forEach(r=>r.classList.remove('expanded'));
-  if(!isOpen){exp.classList.add('open');row.classList.add('expanded');}
+function toggleRow(row, id) {
+  const exp    = document.getElementById(id);
+  const isOpen = exp.classList.contains('open');
+  document.querySelectorAll('.expanded-row').forEach(r => r.classList.remove('open'));
+  document.querySelectorAll('.data-row').forEach(r => r.classList.remove('expanded'));
+  if(!isOpen) { exp.classList.add('open'); row.classList.add('expanded'); }
 }
 
 function showUpdatedTag() {
-  const date=localStorage.getItem(STORAGE_DATE);
-  const tag=document.getElementById('updatedTag');
-  const sub=document.getElementById('bannerSub');
-  if(date){
-    const d=new Date(date);
-    const str=d.toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
-    tag.textContent='✅ Last updated: '+str;
+  const date = localStorage.getItem(STORAGE_DATE);
+  const tag  = document.getElementById('updatedTag');
+  const sub  = document.getElementById('bannerSub');
+  if(date) {
+    const d   = new Date(date);
+    const str = d.toLocaleDateString('en-US', {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'});
+    tag.textContent = '✅ Last updated: ' + str;
     tag.classList.add('visible');
-    sub.textContent='Last refreshed '+str+' · Updated daily by the Seeko team';
+    sub.textContent = 'Last refreshed ' + str + ' · Updated daily by the Seeko team';
   }
 }
 
 window.addEventListener('load', () => {
-  const saved=localStorage.getItem(STORAGE_KEY);
-  if(saved){try{allProducts=JSON.parse(saved);renderTable(allProducts);showUpdatedTag();}catch(e){renderTable([]);}}
-  else renderTable([]);
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if(saved) {
+    try { allProducts = JSON.parse(saved); renderTable(allProducts); showUpdatedTag(); }
+    catch(e) { renderTable([]); }
+  } else {
+    renderTable([]);
+  }
 });
 </script>
 </body>
